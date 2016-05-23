@@ -16,6 +16,8 @@
 		A3CEBC5A1CEFA37700BF2D9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3CEBC581CEFA37700BF2D9F /* LaunchScreen.storyboard */; };
 		A3CEBC651CEFA37700BF2D9F /* FutureWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CEBC641CEFA37700BF2D9F /* FutureWeatherTests.m */; };
 		A3CEBC701CEFA37700BF2D9F /* FutureWeatherUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CEBC6F1CEFA37700BF2D9F /* FutureWeatherUITests.m */; };
+		A3D163241CF38D4F0097A4D5 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D163231CF38D4F0097A4D5 /* ThirdViewController.m */; };
+		A3D163271CF392D40097A4D5 /* ConstantsClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D163261CF392D40097A4D5 /* ConstantsClass.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,10 @@
 		A3CEBC6B1CEFA37700BF2D9F /* FutureWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FutureWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3CEBC6F1CEFA37700BF2D9F /* FutureWeatherUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FutureWeatherUITests.m; sourceTree = "<group>"; };
 		A3CEBC711CEFA37700BF2D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3D163221CF38D4F0097A4D5 /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
+		A3D163231CF38D4F0097A4D5 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
+		A3D163251CF392D40097A4D5 /* ConstantsClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantsClass.h; sourceTree = "<group>"; };
+		A3D163261CF392D40097A4D5 /* ConstantsClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantsClass.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,11 +116,15 @@
 				A3CEBC4E1CEFA37700BF2D9F /* FirstViewController.m */,
 				A3CEBC501CEFA37700BF2D9F /* SecondViewController.h */,
 				A3CEBC511CEFA37700BF2D9F /* SecondViewController.m */,
+				A3D163221CF38D4F0097A4D5 /* ThirdViewController.h */,
+				A3D163231CF38D4F0097A4D5 /* ThirdViewController.m */,
 				A3CEBC531CEFA37700BF2D9F /* Main.storyboard */,
 				A3CEBC561CEFA37700BF2D9F /* Assets.xcassets */,
 				A3CEBC581CEFA37700BF2D9F /* LaunchScreen.storyboard */,
 				A3CEBC5B1CEFA37700BF2D9F /* Info.plist */,
 				A3CEBC471CEFA37700BF2D9F /* Supporting Files */,
+				A3D163251CF392D40097A4D5 /* ConstantsClass.h */,
+				A3D163261CF392D40097A4D5 /* ConstantsClass.m */,
 			);
 			path = FutureWeather;
 			sourceTree = "<group>";
@@ -275,7 +285,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3D163271CF392D40097A4D5 /* ConstantsClass.m in Sources */,
 				A3CEBC521CEFA37700BF2D9F /* SecondViewController.m in Sources */,
+				A3D163241CF38D4F0097A4D5 /* ThirdViewController.m in Sources */,
 				A3CEBC4C1CEFA37700BF2D9F /* AppDelegate.m in Sources */,
 				A3CEBC4F1CEFA37700BF2D9F /* FirstViewController.m in Sources */,
 				A3CEBC491CEFA37700BF2D9F /* main.m in Sources */,
@@ -502,6 +514,7 @@
 				A3CEBC761CEFA37700BF2D9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A3CEBC771CEFA37700BF2D9F /* Build configuration list for PBXNativeTarget "FutureWeatherTests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +523,7 @@
 				A3CEBC791CEFA37700BF2D9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A3CEBC7A1CEFA37700BF2D9F /* Build configuration list for PBXNativeTarget "FutureWeatherUITests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +532,7 @@
 				A3CEBC7C1CEFA37700BF2D9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

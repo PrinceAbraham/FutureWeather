@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConstantsClass.h"
 
-@interface FirstViewController : UIViewController
+@interface FirstViewController : UIViewController<UISearchBarDelegate>
 
+@property (weak, nonatomic) IBOutlet UISearchBar *firstSearchBar;
 
 @end
 

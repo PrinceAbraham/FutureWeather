@@ -19,19 +19,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jhn-io-QIh">
-                                <rect key="frame" x="0.0" y="85" width="600" height="466"/>
+                                <rect key="frame" x="0.0" y="100" width="600" height="451"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Look Up by City and Country, or Zip Code" translatesAutoresizingMaskIntoConstraints="NO" id="6c9-yk-6N0">
+                                <rect key="frame" x="0.0" y="56" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="5Ig-gp-bRW"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="6c9-yk-6N0" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="273-Wb-kso"/>
+                            <constraint firstItem="jhn-io-QIh" firstAttribute="top" secondItem="6c9-yk-6N0" secondAttribute="bottom" id="IyV-K9-iuG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6c9-yk-6N0" secondAttribute="trailing" constant="-20" id="KV2-qD-Cvx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jhn-io-QIh" secondAttribute="trailing" constant="-20" id="N2R-uG-Rh4"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="jhn-io-QIh" secondAttribute="bottom" id="e99-hr-tar"/>
+                            <constraint firstItem="6c9-yk-6N0" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="36" id="eOU-dB-UaD"/>
                             <constraint firstItem="jhn-io-QIh" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="nVQ-zA-8Iv"/>
-                            <constraint firstItem="jhn-io-QIh" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="65" id="uHl-xM-Dmq"/>
+                            <constraint firstItem="jhn-io-QIh" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="80" id="uHl-xM-Dmq"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Daily" image="second" selectedImage="second" id="acW-dT-cKf"/>
+                    <connections>
+                        <outlet property="firstSearchBar" destination="6c9-yk-6N0" id="ODN-aX-yi9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
@@ -50,16 +64,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dfu-8k-SxN">
-                                <rect key="frame" x="0.0" y="85" width="600" height="466"/>
+                                <rect key="frame" x="0.0" y="100" width="600" height="466"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Look Up by City and Country, or Zip Code" translatesAutoresizingMaskIntoConstraints="NO" id="qP1-IJ-qqX">
+                                <rect key="frame" x="0.0" y="56" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="dfu-8k-SxN" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="65" id="JCq-9g-voS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qP1-IJ-qqX" secondAttribute="trailing" constant="-20" id="H4n-nM-XGo"/>
+                            <constraint firstItem="dfu-8k-SxN" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="80" id="JCq-9g-voS"/>
+                            <constraint firstItem="qP1-IJ-qqX" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="-20" id="JUp-4c-B06"/>
                             <constraint firstItem="dfu-8k-SxN" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="-20" id="NUg-8D-rSe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dfu-8k-SxN" secondAttribute="trailing" constant="-20" id="OqZ-bI-WVE"/>
-                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="dfu-8k-SxN" secondAttribute="bottom" id="RMl-gv-CnY"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="dfu-8k-SxN" secondAttribute="bottom" constant="-15" id="RMl-gv-CnY"/>
+                            <constraint firstItem="qP1-IJ-qqX" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="36" id="os4-cq-lMt"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Weekly" image="second" id="cPa-gy-q4n"/>
@@ -71,7 +92,7 @@
         <!--Monthly-->
         <scene sceneID="zyG-Bv-ru3">
             <objects>
-                <viewController id="fXB-t7-8tE" sceneMemberID="viewController">
+                <viewController id="fXB-t7-8tE" customClass="ThirdViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NV5-uJ-OLB"/>
                         <viewControllerLayoutGuide type="bottom" id="O6q-e1-7gB"/>
@@ -81,16 +102,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hUi-2f-twt">
-                                <rect key="frame" x="0.0" y="85" width="600" height="466"/>
+                                <rect key="frame" x="0.0" y="100" width="600" height="451"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Look Up by City and Country, or Zip Code" translatesAutoresizingMaskIntoConstraints="NO" id="Isg-Rg-fh3">
+                                <rect key="frame" x="0.0" y="56" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="O6q-e1-7gB" firstAttribute="top" secondItem="hUi-2f-twt" secondAttribute="bottom" id="38h-IS-Pvl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hUi-2f-twt" secondAttribute="trailing" constant="-20" id="4vL-WS-Ohl"/>
-                            <constraint firstItem="hUi-2f-twt" firstAttribute="top" secondItem="NV5-uJ-OLB" secondAttribute="bottom" constant="65" id="Dye-qu-sjn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Isg-Rg-fh3" secondAttribute="trailing" constant="-20" id="9Sx-Sc-XNU"/>
+                            <constraint firstItem="hUi-2f-twt" firstAttribute="top" secondItem="NV5-uJ-OLB" secondAttribute="bottom" constant="80" id="Dye-qu-sjn"/>
                             <constraint firstItem="hUi-2f-twt" firstAttribute="leading" secondItem="oNT-IS-sRj" secondAttribute="leadingMargin" constant="-20" id="J71-tj-6ld"/>
+                            <constraint firstItem="Isg-Rg-fh3" firstAttribute="leading" secondItem="oNT-IS-sRj" secondAttribute="leadingMargin" constant="-20" id="Q5R-G0-ELg"/>
+                            <constraint firstItem="Isg-Rg-fh3" firstAttribute="top" secondItem="NV5-uJ-OLB" secondAttribute="bottom" constant="36" id="aaH-rR-16X"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Monthly" image="second" id="VxR-gO-c9T"/>
