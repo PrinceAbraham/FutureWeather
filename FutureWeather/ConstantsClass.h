@@ -10,6 +10,8 @@
 
 @interface ConstantsClass : NSObject
 
+FOUNDATION_EXPORT NSString *const URL;
+FOUNDATION_EXPORT NSString *const DAILY;
 FOUNDATION_EXPORT NSString *const APIURLWITHKEY;
 
 @end

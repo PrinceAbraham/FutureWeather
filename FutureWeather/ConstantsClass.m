@@ -10,7 +10,9 @@
 
 @implementation ConstantsClass
 
-NSString *const APIURLWITHKEY = @"http://api.wunderground.com/api/bdf092e30edcd2ad/";
+NSString *const URL = @"http://api.openweathermap.org/data/2.5/";
+NSString *const DAILY = @"forecast/daily?";
+NSString *const APIURLWITHKEY = @"&appid=4f50f30a3819af68e7dc76bde4917f15";
 
 
 @end

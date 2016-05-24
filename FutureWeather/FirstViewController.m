@@ -42,9 +42,21 @@ NSMutableString *firstSearchText;
 }
 
 -(NSString *)getDailyWeather{
-    NSMutableString *urlForThisCall = [[APIURLWITHKEY stringByAppendingString:@"hourly/q/"]mutableCopy];
+    NSMutableCharacterSet *numSet = [NSMutableCharacterSet decimalDigitCharacterSet];
+    NSMutableString *zipOrCity = [[NSMutableString alloc]init];
+    BOOL zip = [[firstSearchText stringByTrimmingCharactersInSet:numSet] isEqualToString:@""];
+    
+    if(zip){
+        zipOrCity = @"zip=";
+    }else{
+        zipOrCity =@"q=";
+    }
+    
+    //if(firstSearchText)
+    NSMutableString *urlForThisCall = [[URL stringByAppendingString:DAILY]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:zipOrCity]mutableCopy];
     urlForThisCall = [[urlForThisCall stringByAppendingString:firstSearchText]mutableCopy];
-    urlForThisCall = [[urlForThisCall stringByAppendingString:@".json"]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:APIURLWITHKEY]mutableCopy];
     NSURL *url = [NSURL URLWithString:urlForThisCall];
     //NSURLRequest *req = [NSURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -52,7 +64,9 @@ NSMutableString *firstSearchText;
     [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //handle response
         
-        NSLog(@"PRINT %@",response);
+        NSDictionary *stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        NSLog(@"PRINT %@",[stuff objectForKey:@"city"]);
         
     }] resume];
     return nil;
