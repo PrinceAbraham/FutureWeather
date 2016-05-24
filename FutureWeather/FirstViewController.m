@@ -9,21 +9,31 @@
 #import "FirstViewController.h"
 
 @interface FirstViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *highLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lowLabel;
+@property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *weatherImage;
 
 @end
 
 @implementation FirstViewController
 
-@synthesize firstSearchBar;
+@synthesize firstSearchBar, highLabel, lowLabel, temperatureLabel, weatherImage;
 
 NSMutableString *firstSearchText;
+
+NSMutableArray *dailyObjects;
+
+DailyObject *currentDailyObject;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
     firstSearchText = [[NSMutableString alloc] init];
-    
+    dailyObjects = [[NSMutableArray alloc] init];
+    currentDailyObject = [[DailyObject alloc] init];
     
 }
 
@@ -65,10 +75,27 @@ NSMutableString *firstSearchText;
         //handle response
         
         NSDictionary *stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        dailyObjects = [stuff objectForKey:@"list"];
+        NSLog(@"PRINT %lu",[dailyObjects count]);
         
-        NSLog(@"PRINT %@",[stuff objectForKey:@"city"]);
+        for(int i=0; i<3; i++){
+            [currentDailyObject setWeatherDescription:[[[[ dailyObjects objectAtIndex:i] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
+            [currentDailyObject setCurrentTime:[[dailyObjects objectAtIndex:i] objectForKey:@"dt"]];
+            [currentDailyObject setTemperature:[[[dailyObjects objectAtIndex:i] objectForKey:@"main"] objectForKey:@"temp"]];
+            [currentDailyObject setCloudiness:[[[dailyObjects objectAtIndex:i] objectForKey:@"clouds"] objectForKey:@"all"]];
+            [currentDailyObject setWindSpeed:[[[dailyObjects objectAtIndex:i] objectForKey:@"wind"] objectForKey:@"speed"]];
+            [currentDailyObject setBackgroundImage:[UIImage imageNamed:@""]];
+            [currentDailyObject setHigh:[[[dailyObjects objectAtIndex:0] objectForKey:@"main"] objectForKey:@"temp_max"]];
+            [currentDailyObject setLow:[[[dailyObjects objectAtIndex:0] objectForKey:@"main"] objectForKey:@"temp_min"]];
+            [dailyObjects addObject:currentDailyObject];
+        }
+        
+        highLabel.text = [[[dailyObjects objectAtIndex:0] objectForKey:@"main"] objectForKey:@"temp_max"];
+        lowLabel.text = [[[dailyObjects objectAtIndex:0] objectForKey:@"main"] objectForKey:@"temp_min"];
+        temperatureLabel.text = [[[dailyObjects objectAtIndex:0] objectForKey:@"main"] objectForKey:@"temp"];
         
     }] resume];
+    
     return nil;
 }
 

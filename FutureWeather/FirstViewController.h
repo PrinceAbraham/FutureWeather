@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConstantsClass.h"
+#import "DailyObject.h"
 
 @interface FirstViewController : UIViewController<UISearchBarDelegate>
 
