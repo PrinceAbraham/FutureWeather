@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIkit.h>
 
-@interface DailyObject : NSObject
+@interface TodayObject : NSObject
 
-@property NSMutableString *weatherDescription, *temperature, *cloudiness, *windSpeed, *high, *low;
-@property NSDate *currentTime;
-@property UIImage *backgroundImage;
+@property (nonatomic, copy) NSMutableString *weatherDescription, *temperature, *cloudiness, *windSpeed, *high, *low;
+@property (nonatomic, copy) NSDate *currentTime;
+@property (nonatomic, copy) UIImage *backgroundImage;
 
 -(void)setWeatherDescription:(NSMutableString *)weatherDescription;
 -(void)setBackgroundImage:(UIImage *)backgroundImage;

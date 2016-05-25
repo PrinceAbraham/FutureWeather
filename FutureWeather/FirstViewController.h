@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "ConstantsClass.h"
-#import "DailyObject.h"
+#import "TodayObject.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface FirstViewController : UIViewController<UISearchBarDelegate>
+@interface FirstViewController : UIViewController<UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource,CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *firstSearchBar;
+
+@property NSMutableArray *todayObjects, *tabletodayObjects;
+
+-(float) convertToFahranheit:(float) kelvin;
 
 @end
 
