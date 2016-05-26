@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConstantsClass.h"
-#import "TodayObject.h"
+#import "WeatherObject.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface FirstViewController : UIViewController<UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource,CLLocationManagerDelegate>

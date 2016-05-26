@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WeatherObject.h"
+#import "WeeklyCollectionViewCell.h"
 
-@interface SecondViewController : UIViewController
-
+@interface SecondViewController : UIViewController<UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
 

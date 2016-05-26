@@ -6,15 +6,12 @@
 //  Copyright © 2016 Prince. All rights reserved.
 //
 
-#import "TodayObject.h"
+#import "WeatherObject.h"
 
-@implementation TodayObject
+@implementation WeatherObject
 
 -(void)setWeatherDescription:(NSMutableString *)wDescription{
     _weatherDescription = wDescription;
-}
--(void)setCloudiness:(NSMutableString *)cloudy{
-    _cloudiness = cloudy;
 }
 -(void)setWindSpeed:(NSMutableString *)wSpeed{
     _windSpeed = wSpeed;

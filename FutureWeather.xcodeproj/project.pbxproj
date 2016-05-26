@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		17BE716FD5FF3BA5DE6F5094 /* libPods-FutureWeatherTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B5B0CFF2396DD7E1E365A11 /* libPods-FutureWeatherTests.a */; };
-		9B61918484295E6F78473067 /* libPods-FutureWeather.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FFEC2F38251F32F7D6082 /* libPods-FutureWeather.a */; };
 		9CEC796AB7E5B3F9C4ED287A /* libPods-FutureWeatherUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DEA05A236FF67B9BE66431D /* libPods-FutureWeatherUITests.a */; };
-		A36C4E371CF4CDDD00A5BA17 /* TodayObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C4E361CF4CDDD00A5BA17 /* TodayObject.m */; };
+		A36C4E371CF4CDDD00A5BA17 /* WeatherObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C4E361CF4CDDD00A5BA17 /* WeatherObject.m */; };
+		A3914C611CF7516E00324E0A /* WeeklyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3914C601CF7516E00324E0A /* WeeklyCollectionViewCell.m */; };
 		A3C320891CF6045100D41334 /* todayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C320881CF6045100D41334 /* todayCollectionViewCell.m */; };
 		A3CEBC491CEFA37700BF2D9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CEBC481CEFA37700BF2D9F /* main.m */; };
 		A3CEBC4C1CEFA37700BF2D9F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CEBC4B1CEFA37700BF2D9F /* AppDelegate.m */; };
@@ -23,6 +23,7 @@
 		A3CEBC701CEFA37700BF2D9F /* FutureWeatherUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CEBC6F1CEFA37700BF2D9F /* FutureWeatherUITests.m */; };
 		A3D163241CF38D4F0097A4D5 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D163231CF38D4F0097A4D5 /* ThirdViewController.m */; };
 		A3D163271CF392D40097A4D5 /* ConstantsClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D163261CF392D40097A4D5 /* ConstantsClass.m */; };
+		E6C5484070AAF477A278FF17 /* libPods-FutureWeather.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FFEC2F38251F32F7D6082 /* libPods-FutureWeather.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,8 +51,10 @@
 		7D3A7339770A0747AED15809 /* Pods-FutureWeatherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureWeatherUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FutureWeatherUITests/Pods-FutureWeatherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7DEA05A236FF67B9BE66431D /* libPods-FutureWeatherUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FutureWeatherUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C4FFEC2F38251F32F7D6082 /* libPods-FutureWeather.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FutureWeather.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A36C4E351CF4CDDD00A5BA17 /* TodayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayObject.h; sourceTree = "<group>"; };
-		A36C4E361CF4CDDD00A5BA17 /* TodayObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayObject.m; sourceTree = "<group>"; };
+		A36C4E351CF4CDDD00A5BA17 /* WeatherObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherObject.h; sourceTree = "<group>"; };
+		A36C4E361CF4CDDD00A5BA17 /* WeatherObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherObject.m; sourceTree = "<group>"; };
+		A3914C5F1CF7516E00324E0A /* WeeklyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeeklyCollectionViewCell.h; sourceTree = "<group>"; };
+		A3914C601CF7516E00324E0A /* WeeklyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeeklyCollectionViewCell.m; sourceTree = "<group>"; };
 		A3C320871CF6045100D41334 /* todayCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = todayCollectionViewCell.h; sourceTree = "<group>"; };
 		A3C320881CF6045100D41334 /* todayCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = todayCollectionViewCell.m; sourceTree = "<group>"; };
 		A3CEBC441CEFA37600BF2D9F /* FutureWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FutureWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B61918484295E6F78473067 /* libPods-FutureWeather.a in Frameworks */,
+				E6C5484070AAF477A278FF17 /* libPods-FutureWeather.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,8 +161,8 @@
 				A3CEBC471CEFA37700BF2D9F /* Supporting Files */,
 				A3D163251CF392D40097A4D5 /* ConstantsClass.h */,
 				A3D163261CF392D40097A4D5 /* ConstantsClass.m */,
-				A36C4E351CF4CDDD00A5BA17 /* TodayObject.h */,
-				A36C4E361CF4CDDD00A5BA17 /* TodayObject.m */,
+				A36C4E351CF4CDDD00A5BA17 /* WeatherObject.h */,
+				A36C4E361CF4CDDD00A5BA17 /* WeatherObject.m */,
 				A3C320871CF6045100D41334 /* todayCollectionViewCell.h */,
 				A3C320881CF6045100D41334 /* todayCollectionViewCell.m */,
 			);
@@ -170,6 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				A3CEBC481CEFA37700BF2D9F /* main.m */,
+				A3914C5F1CF7516E00324E0A /* WeeklyCollectionViewCell.h */,
+				A3914C601CF7516E00324E0A /* WeeklyCollectionViewCell.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -469,10 +474,11 @@
 				A3D163271CF392D40097A4D5 /* ConstantsClass.m in Sources */,
 				A3CEBC521CEFA37700BF2D9F /* SecondViewController.m in Sources */,
 				A3D163241CF38D4F0097A4D5 /* ThirdViewController.m in Sources */,
+				A3914C611CF7516E00324E0A /* WeeklyCollectionViewCell.m in Sources */,
 				A3CEBC4C1CEFA37700BF2D9F /* AppDelegate.m in Sources */,
 				A3C320891CF6045100D41334 /* todayCollectionViewCell.m in Sources */,
 				A3CEBC4F1CEFA37700BF2D9F /* FirstViewController.m in Sources */,
-				A36C4E371CF4CDDD00A5BA17 /* TodayObject.m in Sources */,
+				A36C4E371CF4CDDD00A5BA17 /* WeatherObject.m in Sources */,
 				A3CEBC491CEFA37700BF2D9F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

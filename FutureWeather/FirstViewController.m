@@ -17,22 +17,20 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *dailyCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-
+@property (strong) CLLocationManager *location;
 @end
 
 @implementation FirstViewController
 
-@synthesize firstSearchBar, highLabel, lowLabel, temperatureLabel, weatherImage, locationLabel, descriptionLabel, todayObjects, tabletodayObjects;
+@synthesize firstSearchBar, highLabel, lowLabel, temperatureLabel, weatherImage, locationLabel, descriptionLabel, todayObjects, tabletodayObjects, location;
 
 NSMutableString *firstSearchText;
 
 NSArray *weatherDescriptions;
 
-TodayObject *currentTodayObjects;
+WeatherObject *currentTodayObjects;
 
 NSDateFormatter *df;
-
-CLLocationManager *location;
 
 
 - (void)viewDidLoad {
@@ -42,15 +40,16 @@ CLLocationManager *location;
     firstSearchText = [[NSMutableString alloc] init];
     todayObjects = [[NSMutableArray alloc] init];
     tabletodayObjects = [[NSMutableArray alloc]init];
-    currentTodayObjects = [[TodayObject alloc] init];
+    currentTodayObjects = [[WeatherObject alloc] init];
     weatherDescriptions = @[@"Clear",@"Clouds",@"Rain",@"Snow"];
     df = [[NSDateFormatter alloc]init];
     [df setTimeStyle:NSDateFormatterShortStyle];
+    
     location = [[CLLocationManager alloc]init];
     location.delegate = self;
     location.desiredAccuracy = kCLLocationAccuracyBest;
     location.distanceFilter = kCLDistanceFilterNone;
-    [location requestLocation];
+    [location requestWhenInUseAuthorization];
     //[df setTimeZone:[NSTimeZone ]];
 }
 
@@ -104,7 +103,6 @@ CLLocationManager *location;
             [currentTodayObjects setWeatherDescription:(NSMutableString *)[[[[ todayObjects objectAtIndex:i] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
             [currentTodayObjects setCurrentTime:(NSDate *)[[todayObjects objectAtIndex:i] objectForKey:@"dt"]];
             [currentTodayObjects setTemperature: [NSMutableString stringWithFormat:@"%d",(int)[self convertToFahranheit:temp]]];
-            [currentTodayObjects setCloudiness:(NSMutableString *)[[[todayObjects objectAtIndex:i] objectForKey:@"clouds"] objectForKey:@"all"]];
             [currentTodayObjects setWindSpeed:(NSMutableString *)[[[todayObjects objectAtIndex:i] objectForKey:@"wind"] objectForKey:@"speed"]];
             [currentTodayObjects setBackgroundImage:[UIImage imageNamed:currentTodayObjects.description]];
             [currentTodayObjects setHigh:[NSMutableString stringWithFormat:@"%d",(int)[self convertToFahranheit:high]]];
@@ -161,7 +159,7 @@ CLLocationManager *location;
 
 #pragma marks - Custom Functions
 -(float) convertToFahranheit:(float)kelvin{
-    float k= (round(kelvin * 9.0/5) - 459.67);
+    float k= (round(kelvin * 9.0/5) - 459.67)-10;
     int f = (int)k;
     return f;
 }
