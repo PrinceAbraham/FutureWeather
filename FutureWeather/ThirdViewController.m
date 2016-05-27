@@ -141,6 +141,15 @@ NSDateFormatter *tenDaylydFormatter;
             weatherImage.image = [UIImage imageNamed:(NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
             locationLabel.text = [NSMutableString stringWithFormat:@"%@",[[stuff objectForKey:@"city"] objectForKey:@"name"]];
             descriptionLabel.text = (NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"];
+            if([currentTenDayly.weatherDescription isEqualToString:@"Rain"]){
+                self.view.backgroundColor = rain;
+            }else if([currentTenDayly.weatherDescription isEqualToString:@"Clouds"]){
+                self.view.backgroundColor = cloud;
+            }else if([currentTenDayly.weatherDescription isEqualToString:@"Snow"]){
+                // self.view.backgroundColor = snow;
+            }else{
+                //if(
+            }
             [self.tenDaylyCollectionView reloadData];
         });
         

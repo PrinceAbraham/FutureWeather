@@ -106,7 +106,7 @@
                   moduleName = "FutureWeather"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/prince/Desktop/FutureWeather/FutureWeather/SecondViewController.m"
-                  timestampString = "486052254.304862"
+                  timestampString = "486073173.3343"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "99"
@@ -121,7 +121,7 @@
                   moduleName = "FutureWeather"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/prince/Desktop/FutureWeather/FutureWeather/SecondViewController.m"
-                  timestampString = "486052254.305015"
+                  timestampString = "486073173.334388"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "102"
@@ -202,7 +202,7 @@
                   moduleName = "FutureWeather"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/prince/Desktop/FutureWeather/FutureWeather/SecondViewController.m"
-                  timestampString = "486052254.306712"
+                  timestampString = "486073173.336318"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "124"
@@ -217,7 +217,7 @@
                   moduleName = "FutureWeather"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/prince/Desktop/FutureWeather/FutureWeather/SecondViewController.m"
-                  timestampString = "486052254.306795"
+                  timestampString = "486073173.336448"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "124"
@@ -234,43 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FutureWeather/ThirdViewController.m"
-            timestampString = "486051158.879684"
+            timestampString = "486052095.273101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "-collectionView:cellForItemAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FutureWeather/ThirdViewController.m"
-            timestampString = "486051308.916727"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FutureWeather/ThirdViewController.m"
-            timestampString = "486052037.201839"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "-getTenDaylyWeather:"
             landmarkType = "5">
          </BreakpointContent>
@@ -282,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FutureWeather/ThirdViewController.m"
-            timestampString = "486052095.273101"
+            timestampString = "486073072.873499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "-getTenDaylyWeather:"
             landmarkType = "5">
          </BreakpointContent>
