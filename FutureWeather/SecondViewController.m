@@ -19,11 +19,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *lowLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *weatherImage;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *mainBackgroundImage;
 
 @end
 
 @implementation SecondViewController
-@synthesize weeklySearchBar, temperatureLabel, descriptionLabel, locationLabel, weeklyCollectionView, highLabel, lowLabel, weatherImage, dateLabel;
+@synthesize weeklySearchBar, temperatureLabel, descriptionLabel, locationLabel, weeklyCollectionView, highLabel, lowLabel, weatherImage, dateLabel, mainBackgroundImage;
 
 NSMutableString *searchText;
 NSMutableArray *weeklyObjects, *tableWeeklyObjects;
@@ -66,16 +67,44 @@ NSDateFormatter *dFormatter;
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     WeeklyCollectionViewCell *cell = (WeeklyCollectionViewCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"weekly" forIndexPath:indexPath];
     if([weeklyObjects count]>0){
-        double d = [[[weeklyObjects objectAtIndex:indexPath.row+1] objectForKey:@"dt"] doubleValue];
+        double d = [[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"dt"] doubleValue];
         NSTimeInterval tInterval= (NSTimeInterval)d;
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
         cell.DayLabel.text = [dFormatter stringFromDate:date];
-        cell.backgroundImage.image = [UIImage imageNamed:[ NSString stringWithFormat:@"%@",[[[[weeklyObjects objectAtIndex:indexPath.row+1] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]]];
-        cell.temperatureLabel.text = [NSString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row+1] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
+        cell.backgroundImage.image = [UIImage imageNamed:[ NSString stringWithFormat:@"%@",[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]]];
+        cell.temperatureLabel.text = [NSString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
     }
     return cell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"max"] floatValue]], @"\u00B0"];
+    lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"min"] floatValue]], @"\u00B0"];
+    temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
+    weatherImage.image = [UIImage imageNamed:(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
+    descriptionLabel.text = (NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"];
+    double d = [[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"dt"] doubleValue];
+    NSTimeInterval tInterval= (NSTimeInterval)d;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
+    dateLabel.text = [dFormatter stringFromDate:date];
+    if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
+        mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
+    }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
+        mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
+    }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
+        // self.view.backgroundColor = snow;
+    }else{
+        NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+        [timeFormatter setDateFormat:@"HH:mm"];
+        NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
+        if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
+            mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
+        }else{
+            mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+        }
+    }
+
+}
 #pragma mark - Custom Functions
 -(void)getWeeklyWeather:(NSMutableString *) text{
     NSMutableCharacterSet *numSet = [NSMutableCharacterSet decimalDigitCharacterSet];
@@ -134,9 +163,9 @@ NSDateFormatter *dFormatter;
             NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
             dateLabel.text = [dFormatter stringFromDate:date];
             if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
-                self.view.backgroundColor = rain;
+                mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
             }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
-                self.view.backgroundColor = cloud;
+                mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
             }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
                 // self.view.backgroundColor = snow;
             }else{
@@ -144,12 +173,11 @@ NSDateFormatter *dFormatter;
                 [timeFormatter setDateFormat:@"HH:mm"];
                 NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
                 if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
-                    self.view.backgroundColor = night;
+                    mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
                 }else{
-                    self.view.backgroundColor = day;
+                    mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
                 }
-            }
-            [self.weeklyCollectionView reloadData];
+            }            [self.weeklyCollectionView reloadData];
         });
         
     }] resume];

@@ -18,6 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xeT-S9-yr4">
+                                <rect key="frame" x="0.0" y="-49" width="600" height="600"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EbB-jG-UFR">
                                 <rect key="frame" x="0.0" y="100" width="600" height="250"/>
                             </imageView>
@@ -210,14 +213,18 @@
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="Cux-f4-fXx" secondAttribute="bottom" constant="1" id="6rI-aQ-w9W"/>
                             <constraint firstItem="FxU-Zo-dWc" firstAttribute="top" secondItem="6c9-yk-6N0" secondAttribute="bottom" constant="115" id="8au-mC-9CL"/>
                             <constraint firstItem="EbB-jG-UFR" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="9rL-ou-oDU"/>
+                            <constraint firstItem="xeT-S9-yr4" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" id="AjJ-5G-BmT"/>
                             <constraint firstItem="r8a-2l-vD4" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="247" id="BMZ-O3-OZb"/>
                             <constraint firstItem="CUN-Bd-cMg" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="122" id="C6x-xB-usA"/>
                             <constraint firstItem="Cux-f4-fXx" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="EK6-c6-ry2"/>
                             <constraint firstItem="6uM-xB-c3D" firstAttribute="top" secondItem="ZtI-ft-28R" secondAttribute="bottom" constant="-1" id="FW1-D8-VNK"/>
                             <constraint firstItem="EbB-jG-UFR" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="80" id="Fdg-TE-W1B"/>
+                            <constraint firstItem="xeT-S9-yr4" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" id="Fte-Jr-oug"/>
                             <constraint firstItem="Ezb-bu-cic" firstAttribute="top" secondItem="FxU-Zo-dWc" secondAttribute="bottom" id="HA7-Ef-Zgr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6c9-yk-6N0" secondAttribute="trailing" constant="-20" id="KV2-qD-Cvx"/>
                             <constraint firstItem="6uM-xB-c3D" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="433" id="Pv3-TK-dUe"/>
+                            <constraint firstItem="xeT-S9-yr4" firstAttribute="height" secondItem="tsR-hK-woN" secondAttribute="height" id="PxT-HJ-qyW"/>
+                            <constraint firstItem="xeT-S9-yr4" firstAttribute="leading" secondItem="6c9-yk-6N0" secondAttribute="leading" id="Qvx-HH-s5e"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Cux-f4-fXx" secondAttribute="trailing" constant="-20" id="RwZ-Z8-kVb"/>
                             <constraint firstItem="CUN-Bd-cMg" firstAttribute="top" secondItem="r8a-2l-vD4" secondAttribute="bottom" id="TF3-QD-SOF"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="6uM-xB-c3D" secondAttribute="bottom" constant="290" id="TVO-nq-qjL"/>
@@ -286,6 +293,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1ak-lp-UbX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                            </imageView>
                             <searchBar contentMode="redraw" placeholder="Look Up by City and Country, or Zip Code" translatesAutoresizingMaskIntoConstraints="NO" id="qP1-IJ-qqX">
                                 <rect key="frame" x="0.0" y="56" width="600" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -293,25 +303,40 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I04-ld-SEA" userLabel="weather Image">
                                 <rect key="frame" x="7" y="100" width="600" height="250"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghO-cr-PGD">
-                                <rect key="frame" x="62" y="197" width="49" height="35"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="23"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <size key="shadowOffset" width="1" height="2"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZzA-T9-ov4">
-                                <rect key="frame" x="205" y="327" width="191" height="73"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPo-I0-zgS">
+                                <rect key="frame" x="494" y="200" width="43" height="32"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="191" id="XBw-dS-EFj"/>
-                                    <constraint firstAttribute="height" constant="73" id="p1a-CH-8Us"/>
+                                    <constraint firstAttribute="width" constant="43" id="rXi-a2-ZCY"/>
+                                    <constraint firstAttribute="height" constant="32" id="xBL-G1-bQC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="2"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="High" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghO-cr-PGD">
+                                <rect key="frame" x="62" y="197" width="49" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="2"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="53" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZzA-T9-ov4">
+                                <rect key="frame" x="197" y="293" width="220" height="107"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="XBw-dS-EFj"/>
+                                    <constraint firstAttribute="height" constant="107" id="p1a-CH-8Us"/>
                                     <constraint firstAttribute="height" constant="68" id="yYp-tW-bO8"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="80"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="105"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="1" height="2"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -326,9 +351,10 @@
                                     <constraint firstAttribute="height" constant="36" id="28b-FE-xVo"/>
                                     <constraint firstAttribute="width" constant="560" id="N3v-of-Ng4"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="26"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="1" height="2"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -356,20 +382,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="125" height="169"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Wb-5a-uaj">
+                                                <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Wb-5a-uaj">
                                                     <rect key="frame" x="0.0" y="40" width="125" height="106"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZe-1q-R41">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RZe-1q-R41">
                                                     <rect key="frame" x="0.0" y="21" width="125" height="29"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="29" id="9F5-Ck-7uL"/>
                                                         <constraint firstAttribute="width" constant="125" id="UkH-Og-L4o"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="21"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="21"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
-                                                    <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="shadowOffset" width="1" height="2"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipq-1Z-uFq">
@@ -379,9 +406,10 @@
                                                         <constraint firstAttribute="height" constant="30" id="Z7c-5R-8PS"/>
                                                         <constraint firstAttribute="width" constant="125" id="nKO-rB-wLL"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="21"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="21"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
-                                                    <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="shadowOffset" width="1" height="2"/>
                                                 </label>
                                             </subviews>
@@ -429,9 +457,10 @@
                                     <constraint firstAttribute="width" constant="437" id="nDQ-Es-9cx"/>
                                     <constraint firstAttribute="height" constant="37" id="skq-dp-2gA"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="26"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="1" height="2"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -447,9 +476,10 @@
                                     <constraint firstAttribute="height" constant="30" id="Rov-yA-9qi"/>
                                     <constraint firstAttribute="width" constant="70" id="orq-dx-NJP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="1" height="2"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LowN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzX-uN-Mer">
@@ -459,32 +489,22 @@
                                     <constraint firstAttribute="width" constant="70" id="EWj-g3-rhe"/>
                                     <constraint firstAttribute="height" constant="30" id="IMg-Qw-lA1"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="1" height="2"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDh-sA-0ix">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDh-sA-0ix">
                                 <rect key="frame" x="192" y="400" width="219" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="219" id="3ra-Ko-xBq"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="23"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <size key="shadowOffset" width="1" height="2"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPo-I0-zgS">
-                                <rect key="frame" x="494" y="200" width="43" height="32"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="43" id="rXi-a2-ZCY"/>
-                                    <constraint firstAttribute="height" constant="32" id="xBL-G1-bQC"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="23"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="1" height="2"/>
                             </label>
                         </subviews>
@@ -493,6 +513,7 @@
                             <constraint firstItem="0JG-AE-Tax" firstAttribute="top" secondItem="ghO-cr-PGD" secondAttribute="bottom" constant="-1" id="18b-Ic-ycd"/>
                             <constraint firstItem="I04-ld-SEA" firstAttribute="top" secondItem="qP1-IJ-qqX" secondAttribute="bottom" id="2bt-lc-PKj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Oko-g2-LuX" secondAttribute="trailing" id="3gd-nV-3he"/>
+                            <constraint firstItem="1ak-lp-UbX" firstAttribute="height" secondItem="QS5-Rx-YEW" secondAttribute="height" constant="-49" id="52P-B7-Uqf"/>
                             <constraint firstItem="4e9-OO-tDg" firstAttribute="top" secondItem="qP1-IJ-qqX" secondAttribute="bottom" constant="42" id="8Tf-AG-Jc0"/>
                             <constraint firstItem="4e9-OO-tDg" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="9uQ-2m-Fnx"/>
                             <constraint firstItem="dzX-uN-Mer" firstAttribute="top" secondItem="gPo-I0-zgS" secondAttribute="bottom" constant="-1" id="AAb-ww-u0o"/>
@@ -506,8 +527,9 @@
                             <constraint firstItem="gPo-I0-zgS" firstAttribute="leading" secondItem="I04-ld-SEA" secondAttribute="trailing" constant="-104" id="Q08-GS-YCl"/>
                             <constraint firstItem="dzX-uN-Mer" firstAttribute="top" secondItem="qP1-IJ-qqX" secondAttribute="bottom" constant="131" id="QJd-ph-qtG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="136-cL-gVl" secondAttribute="trailing" constant="-27" id="Tri-eQ-1SY"/>
+                            <constraint firstItem="1ak-lp-UbX" firstAttribute="width" secondItem="QS5-Rx-YEW" secondAttribute="width" id="UUW-Wv-13j"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dzX-uN-Mer" secondAttribute="trailing" constant="30" id="UoR-wm-Pyq"/>
-                            <constraint firstItem="ZzA-T9-ov4" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" constant="63.5" id="XgH-zS-CJc"/>
+                            <constraint firstItem="ZzA-T9-ov4" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" constant="46.5" id="XgH-zS-CJc"/>
                             <constraint firstItem="KDh-sA-0ix" firstAttribute="top" secondItem="ZzA-T9-ov4" secondAttribute="bottom" id="Yhe-bd-b31"/>
                             <constraint firstItem="136-cL-gVl" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="-13" id="ZRp-cr-YIY"/>
                             <constraint firstItem="ZzA-T9-ov4" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="307" id="Zos-HX-uV3"/>
@@ -523,13 +545,15 @@
                             <constraint firstAttribute="trailingMargin" secondItem="4e9-OO-tDg" secondAttribute="trailing" constant="61" id="nVh-ug-PIE"/>
                             <constraint firstItem="Oko-g2-LuX" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="oSa-31-1r8"/>
                             <constraint firstItem="qP1-IJ-qqX" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="36" id="os4-cq-lMt"/>
-                            <constraint firstItem="ZzA-T9-ov4" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="q4U-4h-kju"/>
+                            <constraint firstItem="1ak-lp-UbX" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="p0e-X1-6LE"/>
+                            <constraint firstItem="ZzA-T9-ov4" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" constant="7" id="q4U-4h-kju"/>
                             <constraint firstItem="0JG-AE-Tax" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="31" id="qVQ-Yg-FbO"/>
+                            <constraint firstItem="1ak-lp-UbX" firstAttribute="leading" secondItem="qP1-IJ-qqX" secondAttribute="leading" id="qW4-2c-PgX"/>
                             <constraint firstItem="4e9-OO-tDg" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="122" id="qxc-SO-dX0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ghO-cr-PGD" secondAttribute="trailing" constant="472" id="rEg-DA-j58"/>
                             <constraint firstItem="Oko-g2-LuX" firstAttribute="top" secondItem="qP1-IJ-qqX" secondAttribute="bottom" constant="6" id="tYT-CZ-3c1"/>
                             <constraint firstItem="4e9-OO-tDg" firstAttribute="top" secondItem="Oko-g2-LuX" secondAttribute="bottom" id="uFi-rm-EM6"/>
-                            <constraint firstItem="KDh-sA-0ix" firstAttribute="centerX" secondItem="ZzA-T9-ov4" secondAttribute="centerX" constant="1" id="ugO-82-ia9"/>
+                            <constraint firstItem="KDh-sA-0ix" firstAttribute="centerX" secondItem="ZzA-T9-ov4" secondAttribute="centerX" constant="-5.5" id="ugO-82-ia9"/>
                             <constraint firstItem="ghO-cr-PGD" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="44" id="v7k-gN-SAe"/>
                             <constraint firstItem="Oko-g2-LuX" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="115" id="wAq-zE-hCj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0JG-AE-Tax" secondAttribute="trailing" constant="438" id="ws2-SJ-iCw"/>
@@ -558,6 +582,7 @@
                         <outlet property="highLabel" destination="0JG-AE-Tax" id="g5w-0C-fAu"/>
                         <outlet property="locationLabel" destination="Oko-g2-LuX" id="3Mj-Kg-2VL"/>
                         <outlet property="lowLabel" destination="dzX-uN-Mer" id="7ME-hf-FFs"/>
+                        <outlet property="mainBackgroundImage" destination="1ak-lp-UbX" id="Rn0-bE-z8F"/>
                         <outlet property="temperatureLabel" destination="ZzA-T9-ov4" id="3Td-3n-5Oc"/>
                         <outlet property="weatherImage" destination="I04-ld-SEA" id="HPV-ta-g6D"/>
                         <outlet property="weeklyCollectionView" destination="136-cL-gVl" id="y1y-kY-Rlc"/>
