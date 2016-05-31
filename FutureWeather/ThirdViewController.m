@@ -18,12 +18,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *mainBackgroundImage;
 
 @end
 
 @implementation ThirdViewController
 
-@synthesize tenDaylySearchBar, weatherImage, tenDaylyCollectionView, highLabel, lowLabel, locationLabel, descriptionLabel, temperatureLabel, dateLabel;
+@synthesize tenDaylySearchBar, weatherImage, tenDaylyCollectionView, highLabel, lowLabel, locationLabel, descriptionLabel, temperatureLabel, dateLabel, mainBackgroundImage;
 
 NSMutableString *tenDailySearchText;
 NSMutableArray *tenDayly, *tableTenDayly;
@@ -83,25 +84,6 @@ NSDateFormatter *tenDaylydFormatter;
         cell.dayLabel.text = [tenDaylydFormatter stringFromDate:date];
         cell.backgroundImage.image = [UIImage imageNamed:[ NSString stringWithFormat:@"%@",[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]]];
         cell.temperatureLabel.text = [NSString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
-        if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
-            cell.backgroundColor = rain;
-        }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
-            cell.backgroundColor = cloud;
-        }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
-            // self.view.backgroundColor = snow;
-        }else{
-            NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
-            [timeFormatter setDateFormat:@"HH:mm"];
-            double d = [[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"dt"] doubleValue];
-            NSTimeInterval tInterval= (NSTimeInterval)d;
-            NSDate *dayOrNight = [NSDate dateWithTimeIntervalSince1970:tInterval];
-            NSMutableString *dayOrNightString = [timeFormatter stringFromDate:dayOrNight];
-            if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
-               cell.backgroundColor = night;
-            }else{
-                cell.backgroundColor = day;
-            }
-        }
     }
     return cell;
 }
@@ -116,22 +98,19 @@ NSDateFormatter *tenDaylydFormatter;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
     dateLabel.text = [tenDaylydFormatter stringFromDate:date];
     if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
-        self.view.backgroundColor = rain;
+        mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
     }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
-        self.view.backgroundColor = cloud;
+        mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
     }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
         // self.view.backgroundColor = snow;
     }else{
         NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
         [timeFormatter setDateFormat:@"HH:mm"];
-        double d = [[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"dt"] doubleValue];
-        NSTimeInterval tInterval= (NSTimeInterval)d;
-        NSDate *dayOrNight = [NSDate dateWithTimeIntervalSince1970:tInterval];
-        NSMutableString *dayOrNightString = [timeFormatter stringFromDate:dayOrNight];
+        NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
         if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
-            self.view.backgroundColor = night;
+            mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
         }else{
-            self.view.backgroundColor = day;
+            mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
         }
     }
     [self.tenDaylyCollectionView reloadData];
@@ -197,9 +176,9 @@ NSDateFormatter *tenDaylydFormatter;
             NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
             dateLabel.text = [tenDaylydFormatter stringFromDate:date];
             if([(NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
-                self.view.backgroundColor = rain;
+                mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
             }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
-                self.view.backgroundColor = cloud;
+                mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
             }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
                 // self.view.backgroundColor = snow;
             }else{
@@ -207,9 +186,9 @@ NSDateFormatter *tenDaylydFormatter;
                 [timeFormatter setDateFormat:@"HH:mm"];
                 NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
                 if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
-                    self.view.backgroundColor = night;
+                    mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
                 }else{
-                    self.view.backgroundColor = day;
+                    mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
                 }
             }
             [self.tenDaylyCollectionView reloadData];
