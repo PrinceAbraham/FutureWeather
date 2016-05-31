@@ -18,11 +18,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *highLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lowLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *weatherImage;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @end
 
 @implementation SecondViewController
-@synthesize weeklySearchBar, temperatureLabel, descriptionLabel, locationLabel, weeklyCollectionView, highLabel, lowLabel, weatherImage;
+@synthesize weeklySearchBar, temperatureLabel, descriptionLabel, locationLabel, weeklyCollectionView, highLabel, lowLabel, weatherImage, dateLabel;
 
 NSMutableString *searchText;
 NSMutableArray *weeklyObjects, *tableWeeklyObjects;
@@ -33,7 +34,7 @@ NSDateFormatter *dFormatter;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     dFormatter = [[NSDateFormatter alloc]init];
-    [dFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dFormatter setDateStyle:NSDateFormatterMediumStyle];
     searchText = [[NSMutableString alloc] init];
     weeklyObjects = [[NSMutableArray alloc] init];
     tableWeeklyObjects = [[NSMutableArray alloc] init];
@@ -128,6 +129,26 @@ NSDateFormatter *dFormatter;
             weatherImage.image = [UIImage imageNamed:(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
             locationLabel.text = [NSMutableString stringWithFormat:@"%@",[[stuff objectForKey:@"city"] objectForKey:@"name"]];
             descriptionLabel.text = (NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"];
+            double d = [[[weeklyObjects objectAtIndex:0] objectForKey:@"dt"] doubleValue];
+            NSTimeInterval tInterval= (NSTimeInterval)d;
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
+            dateLabel.text = [dFormatter stringFromDate:date];
+            if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
+                self.view.backgroundColor = rain;
+            }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
+                self.view.backgroundColor = cloud;
+            }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
+                // self.view.backgroundColor = snow;
+            }else{
+                NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+                [timeFormatter setDateFormat:@"HH:mm"];
+                NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
+                if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
+                    self.view.backgroundColor = night;
+                }else{
+                    self.view.backgroundColor = day;
+                }
+            }
             [self.weeklyCollectionView reloadData];
         });
         

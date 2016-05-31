@@ -50,6 +50,7 @@ NSDateFormatter *df;
     location.desiredAccuracy = kCLLocationAccuracyBest;
     location.distanceFilter = kCLDistanceFilterNone;
     [location requestWhenInUseAuthorization];
+    [location startUpdatingLocation];
     //[df setTimeZone:[NSTimeZone ]];
 }
 
