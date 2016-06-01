@@ -30,6 +30,17 @@ NSMutableString *searchText;
 NSMutableArray *weeklyObjects, *tableWeeklyObjects;
 WeatherObject *currentWeekObject;
 NSDateFormatter *dFormatter;
+NSDictionary *stuff;
+AppDelegate *forWeekly;
+
+-(void)viewWillAppear:(BOOL)animated{
+    forWeekly = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if(forWeekly.isSearched){
+        stuff = forWeekly.weeklyCallback;
+        weeklyObjects = [forWeekly.weeklyCallback objectForKey:@"list"];
+        [self arrangeForView];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,6 +49,7 @@ NSDateFormatter *dFormatter;
     [dFormatter setDateStyle:NSDateFormatterMediumStyle];
     searchText = [[NSMutableString alloc] init];
     weeklyObjects = [[NSMutableArray alloc] init];
+    stuff = [[NSDictionary alloc] init];
     tableWeeklyObjects = [[NSMutableArray alloc] init];
     currentWeekObject = [[WeatherObject alloc] init];
     weeklySearchBar.delegate = self;
@@ -59,7 +71,7 @@ NSDateFormatter *dFormatter;
 }
 #pragma mark - CollectionView Delegates
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 6;
+    return 7;
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
@@ -116,12 +128,15 @@ NSDateFormatter *dFormatter;
     }else{
         zipOrCity =@"q=";
     }
+    
+    forWeekly.isSearched = YES;
     //if(firstSearchText)
     NSMutableString *urlForThisCall = [[URL stringByAppendingString:WEEKLY]mutableCopy];
     urlForThisCall = [[urlForThisCall stringByAppendingString:zipOrCity]mutableCopy];
     urlForThisCall = [[urlForThisCall stringByAppendingString:text]mutableCopy];
     urlForThisCall = [[urlForThisCall stringByAppendingString:@"&mode=json"]mutableCopy];
     urlForThisCall = [[urlForThisCall stringByAppendingString:APIURLWITHKEY]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:@"&cnt=10"]mutableCopy];
     NSURL *url = [NSURL URLWithString:urlForThisCall];
     //NSURLRequest *req = [NSURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -129,57 +144,32 @@ NSDateFormatter *dFormatter;
     [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //handle response
         
-        NSDictionary *stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        forWeekly.weeklyCallback = [stuff mutableCopy];
+        forWeekly.tenDayCallback = [stuff mutableCopy];
         weeklyObjects = [stuff objectForKey:@"list"];
         NSLog(@"PRINT %lu",[weeklyObjects count]);
-        
-        for(int i=0; i<[weeklyObjects count]; i++){
-            float temp=0,high=0,low=0;
-            temp = [[[[weeklyObjects objectAtIndex:i] objectForKey:@"temp"] objectForKey:@"day"] floatValue];
-            high= [[[[weeklyObjects objectAtIndex:i] objectForKey:@"temp"] objectForKey:@"max"] floatValue];
-            low = [[[[weeklyObjects objectAtIndex:i] objectForKey:@"temp"] objectForKey:@"min"] floatValue];
-            [currentWeekObject setWeatherDescription:(NSMutableString *)[[[[ weeklyObjects objectAtIndex:i] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
-            [currentWeekObject setCurrentTime:(NSDate *)[[weeklyObjects objectAtIndex:i] objectForKey:@"dt"]];
-            [currentWeekObject setTemperature: [NSMutableString stringWithFormat:@"%d",(int)[self convertToFahranheit:temp]]];
-            [currentWeekObject setWindSpeed:(NSMutableString *)[[weeklyObjects objectAtIndex:i] objectForKey:@"speed"]];
-            [currentWeekObject setBackgroundImage:[UIImage imageNamed:currentWeekObject.weatherDescription]];
-            [currentWeekObject setHigh:[NSMutableString stringWithFormat:@"%d",(int)[self convertToFahranheit:high]]];
-            [currentWeekObject setLow:[NSMutableString stringWithFormat:@"%d",(int)[self convertToFahranheit:low]]];
-            [tableWeeklyObjects addObject:currentWeekObject];
-            
-            //empty currentTodayObjects
-            
-        }
-        
+        [self arrangeForTable];
         dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), ^(void){
-            highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"max"] floatValue]], @"\u00B0"];
-            lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"min"] floatValue]], @"\u00B0"];
-            temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
-            weatherImage.image = [UIImage imageNamed:(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
-            locationLabel.text = [NSMutableString stringWithFormat:@"%@",[[stuff objectForKey:@"city"] objectForKey:@"name"]];
-            descriptionLabel.text = (NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"];
-            double d = [[[weeklyObjects objectAtIndex:0] objectForKey:@"dt"] doubleValue];
-            NSTimeInterval tInterval= (NSTimeInterval)d;
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
-            dateLabel.text = [dFormatter stringFromDate:date];
-            if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
-                mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
-            }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
-                mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
-            }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
-                // self.view.backgroundColor = snow;
-            }else{
-                NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
-                [timeFormatter setDateFormat:@"HH:mm"];
-                NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
-                if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
-                    mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
-                }else{
-                    mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
-                }
-            }            [self.weeklyCollectionView reloadData];
+        [self arrangeForView];
         });
         
+    }] resume];
+    
+    urlForThisCall = [[URL stringByAppendingString:DAILY]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:zipOrCity]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:text]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:APIURLWITHKEY]mutableCopy];
+    url = [NSURL URLWithString:urlForThisCall];
+    //create a session
+    [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        //handle response
+        stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if(![[stuff objectForKey:@"cod"]isEqualToString: @"404"]){
+            forWeekly.dailyCallback = [stuff mutableCopy];
+        }else{
+            //Show error Alert
+        }
     }] resume];
     
 }
@@ -189,5 +179,52 @@ NSDateFormatter *dFormatter;
     int f = (int)k;
     return f;
 }
-
+-(void)arrangeForTable{
+    for(int i=0; i<8; i++){
+        float temp=0,high=0,low=0;
+        temp = [[[[weeklyObjects objectAtIndex:i] objectForKey:@"temp"] objectForKey:@"day"] floatValue];
+        high= [[[[weeklyObjects objectAtIndex:i] objectForKey:@"temp"] objectForKey:@"max"] floatValue];
+        low = [[[[weeklyObjects objectAtIndex:i] objectForKey:@"temp"] objectForKey:@"min"] floatValue];
+        [currentWeekObject setWeatherDescription:(NSMutableString *)[[[[ weeklyObjects objectAtIndex:i] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
+        [currentWeekObject setCurrentTime:(NSDate *)[[weeklyObjects objectAtIndex:i] objectForKey:@"dt"]];
+        [currentWeekObject setTemperature: [NSMutableString stringWithFormat:@"%d",(int)[self convertToFahranheit:temp]]];
+        [currentWeekObject setWindSpeed:(NSMutableString *)[[weeklyObjects objectAtIndex:i] objectForKey:@"speed"]];
+        [currentWeekObject setBackgroundImage:[UIImage imageNamed:currentWeekObject.weatherDescription]];
+        [currentWeekObject setHigh:[NSMutableString stringWithFormat:@"%d",(int)[self convertToFahranheit:high]]];
+        [currentWeekObject setLow:[NSMutableString stringWithFormat:@"%d",(int)[self convertToFahranheit:low]]];
+        [tableWeeklyObjects addObject:currentWeekObject];
+        
+        //empty currentTodayObjects
+        
+    }
+}
+-(void)arrangeForView{
+    highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"max"] floatValue]], @"\u00B0"];
+    lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"min"] floatValue]], @"\u00B0"];
+    temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
+    weatherImage.image = [UIImage imageNamed:(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
+    locationLabel.text = [NSMutableString stringWithFormat:@"%@",[[stuff objectForKey:@"city"] objectForKey:@"name"]];
+    descriptionLabel.text = (NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"];
+    double d = [[[weeklyObjects objectAtIndex:0] objectForKey:@"dt"] doubleValue];
+    NSTimeInterval tInterval= (NSTimeInterval)d;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
+    dateLabel.text = [dFormatter stringFromDate:date];
+    if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
+        mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
+    }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
+        mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
+    }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
+        // self.view.backgroundColor = snow;
+    }else{
+        NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+        [timeFormatter setDateFormat:@"HH:mm"];
+        NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
+        if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
+            mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
+        }else{
+            mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+        }
+    }
+    [self.weeklyCollectionView reloadData];
+}
 @end

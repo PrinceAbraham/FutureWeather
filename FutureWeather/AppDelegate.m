@@ -13,10 +13,16 @@
 @end
 
 @implementation AppDelegate
-
+CLLocationManager *location;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    location = [[CLLocationManager alloc]init];
+    location.desiredAccuracy = kCLLocationAccuracyBest;
+    location.distanceFilter = kCLDistanceFilterNone;
+    [location requestWhenInUseAuthorization];
+    [location requestLocation];
+    location.delegate = self;
     return YES;
 }
 
@@ -40,6 +46,16 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Location Delegates
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    NSLog(@"asdasd");
+    _isSearched = YES;
+    [location stopUpdatingLocation];
+}
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    
 }
 
 @end

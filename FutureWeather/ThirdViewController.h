@@ -10,6 +10,7 @@
 #import "ConstantsClass.h"
 #import "WeatherObject.h"
 #import "TenDaylyCollectionViewCell.h"
+#import "AppDelegate.h"
 
 @interface ThirdViewController : UIViewController < UICollectionViewDelegate, UICollectionViewDataSource>
 

@@ -10,8 +10,9 @@
 #import "ConstantsClass.h"
 #import "WeatherObject.h"
 #import <CoreLocation/CoreLocation.h>
+#import "AppDelegate.h"
 
-@interface FirstViewController : UIViewController<UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource,CLLocationManagerDelegate>
+@interface FirstViewController : UIViewController<UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *firstSearchBar;
 
