@@ -13,16 +13,11 @@
 @end
 
 @implementation AppDelegate
-CLLocationManager *location;
+
+@synthesize location;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    location = [[CLLocationManager alloc]init];
-    location.desiredAccuracy = kCLLocationAccuracyBest;
-    location.distanceFilter = kCLDistanceFilterNone;
-    [location requestWhenInUseAuthorization];
-    [location requestLocation];
-    location.delegate = self;
     return YES;
 }
 
@@ -47,15 +42,66 @@ CLLocationManager *location;
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
+-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    location = [[CLLocationManager alloc]init];
+    location.desiredAccuracy = kCLLocationAccuracyBest;
+    location.distanceFilter = kCLDistanceFilterNone;
+    [location requestWhenInUseAuthorization];
+    location.delegate = self;
+    [location requestLocation];
+    _checkInternet = [UIAlertController alertControllerWithTitle:@"No Internet Connection" message:@"Please check your Internet!" preferredStyle:UIAlertControllerStyleAlert];
+    _unavailableSearch = [UIAlertController alertControllerWithTitle:@"Invalid Search" message:@"Please enter a valid City or Zip." preferredStyle:UIAlertControllerStyleAlert];
+    _ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil];
+    [_unavailableSearch addAction:_ok];
+    [_checkInternet addAction:_ok];
+    return YES;
+}
 #pragma mark - Location Delegates
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
-    NSLog(@"asdasd");
-    _isSearched = YES;
-    [location stopUpdatingLocation];
+    float latitude=0.0, longitude=0.0;
+    latitude = [locations lastObject].coordinate.latitude;
+    longitude = [locations lastObject].coordinate.longitude;
+    NSLog(@"%.2f", [locations lastObject].coordinate.latitude);
+    NSString *cityCall = [NSString stringWithFormat:@"lat=%f&lon=%f",latitude,longitude];
+    NSMutableString *urlForThisCall = [[URL stringByAppendingString:WEEKLY]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:cityCall]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:@"&mode=json"]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:APIURLWITHKEY]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:@"&cnt=10"]mutableCopy];
+    NSURL *url = [NSURL URLWithString:urlForThisCall];
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        //handle response
+        if(data != nil){
+        NSDictionary *stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if(![[stuff objectForKey:@"cod"]isEqualToString: @"404"]){
+            _weeklyCallback = [stuff mutableCopy];
+            _tenDayCallback = [stuff mutableCopy];
+        }else{
+            //Show error Alert
+        }
+        }
+    }] resume];
+    urlForThisCall = [[URL stringByAppendingString:DAILY]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:cityCall]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:APIURLWITHKEY]mutableCopy];
+    url = [NSURL URLWithString:urlForThisCall];
+    [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        //handle response
+        if(data !=nil){
+        NSDictionary *stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if(![[stuff objectForKey:@"cod"]isEqualToString: @"404"]){
+            _dailyCallback = [stuff mutableCopy];
+            _isSearched = YES;
+        }else{
+            //Show error Alert
+        }
+        }
+    }] resume];
 }
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    
+    _isSearched = NO;
 }
 
 @end

@@ -12,6 +12,9 @@
 		A364F5961CFF56890044CD13 /* GlobalObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A364F5951CFF56890044CD13 /* GlobalObject.m */; };
 		A36C4E371CF4CDDD00A5BA17 /* WeatherObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C4E361CF4CDDD00A5BA17 /* WeatherObject.m */; };
 		A3914C611CF7516E00324E0A /* WeeklyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3914C601CF7516E00324E0A /* WeeklyCollectionViewCell.m */; };
+		A3A3BE241D007E2E00700BB0 /* LaunchScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A3A3BE231D007E2E00700BB0 /* LaunchScreen.m */; };
+		A3A3BE271D00815A00700BB0 /* LaunchScreenMaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3A3BE261D00815A00700BB0 /* LaunchScreenMaskViewController.m */; };
+		A3A3BE2A1D00822B00700BB0 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3A3BE291D00822B00700BB0 /* MainTabBarController.m */; };
 		A3C320891CF6045100D41334 /* todayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C320881CF6045100D41334 /* todayCollectionViewCell.m */; };
 		A3CA6AA91CF88B6400423367 /* TenDaylyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CA6AA81CF88B6400423367 /* TenDaylyCollectionViewCell.m */; };
 		A3CEBC491CEFA37700BF2D9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CEBC481CEFA37700BF2D9F /* main.m */; };
@@ -59,6 +62,12 @@
 		A36C4E361CF4CDDD00A5BA17 /* WeatherObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherObject.m; sourceTree = "<group>"; };
 		A3914C5F1CF7516E00324E0A /* WeeklyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeeklyCollectionViewCell.h; sourceTree = "<group>"; };
 		A3914C601CF7516E00324E0A /* WeeklyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeeklyCollectionViewCell.m; sourceTree = "<group>"; };
+		A3A3BE221D007E2E00700BB0 /* LaunchScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchScreen.h; sourceTree = "<group>"; };
+		A3A3BE231D007E2E00700BB0 /* LaunchScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchScreen.m; sourceTree = "<group>"; };
+		A3A3BE251D00815A00700BB0 /* LaunchScreenMaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchScreenMaskViewController.h; sourceTree = "<group>"; };
+		A3A3BE261D00815A00700BB0 /* LaunchScreenMaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchScreenMaskViewController.m; sourceTree = "<group>"; };
+		A3A3BE281D00822B00700BB0 /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
+		A3A3BE291D00822B00700BB0 /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		A3C320871CF6045100D41334 /* todayCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = todayCollectionViewCell.h; sourceTree = "<group>"; };
 		A3C320881CF6045100D41334 /* todayCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = todayCollectionViewCell.m; sourceTree = "<group>"; };
 		A3CA6AA71CF88B6400423367 /* TenDaylyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenDaylyCollectionViewCell.h; sourceTree = "<group>"; };
@@ -161,8 +170,14 @@
 				A3D163221CF38D4F0097A4D5 /* ThirdViewController.h */,
 				A3D163231CF38D4F0097A4D5 /* ThirdViewController.m */,
 				A3CEBC531CEFA37700BF2D9F /* Main.storyboard */,
+				A3A3BE281D00822B00700BB0 /* MainTabBarController.h */,
+				A3A3BE291D00822B00700BB0 /* MainTabBarController.m */,
+				A3A3BE251D00815A00700BB0 /* LaunchScreenMaskViewController.h */,
+				A3A3BE261D00815A00700BB0 /* LaunchScreenMaskViewController.m */,
 				A3CEBC561CEFA37700BF2D9F /* Assets.xcassets */,
 				A3CEBC581CEFA37700BF2D9F /* LaunchScreen.storyboard */,
+				A3A3BE221D007E2E00700BB0 /* LaunchScreen.h */,
+				A3A3BE231D007E2E00700BB0 /* LaunchScreen.m */,
 				A3CEBC5B1CEFA37700BF2D9F /* Info.plist */,
 				A3CEBC471CEFA37700BF2D9F /* Supporting Files */,
 				A3D163251CF392D40097A4D5 /* ConstantsClass.h */,
@@ -481,12 +496,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3A3BE241D007E2E00700BB0 /* LaunchScreen.m in Sources */,
 				A3D163271CF392D40097A4D5 /* ConstantsClass.m in Sources */,
+				A3A3BE271D00815A00700BB0 /* LaunchScreenMaskViewController.m in Sources */,
 				A3CEBC521CEFA37700BF2D9F /* SecondViewController.m in Sources */,
 				A3D163241CF38D4F0097A4D5 /* ThirdViewController.m in Sources */,
 				A364F5961CFF56890044CD13 /* GlobalObject.m in Sources */,
 				A3914C611CF7516E00324E0A /* WeeklyCollectionViewCell.m in Sources */,
 				A3CA6AA91CF88B6400423367 /* TenDaylyCollectionViewCell.m in Sources */,
+				A3A3BE2A1D00822B00700BB0 /* MainTabBarController.m in Sources */,
 				A3CEBC4C1CEFA37700BF2D9F /* AppDelegate.m in Sources */,
 				A3C320891CF6045100D41334 /* todayCollectionViewCell.m in Sources */,
 				A3CEBC4F1CEFA37700BF2D9F /* FirstViewController.m in Sources */,

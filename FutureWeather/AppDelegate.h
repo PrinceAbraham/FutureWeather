@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GlobalObject.h"
 #import <CoreLocation/CoreLocation.h>
+#import "ConstantsClass.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
@@ -18,6 +19,10 @@
 
 @property (nonatomic, strong) GlobalObject *mainProperty;
 @property (nonatomic, strong) NSMutableDictionary *dailyCallback, *weeklyCallback, *tenDayCallback;
+@property CLLocationManager *location;
 @property BOOL isSearched;
+@property UIAlertController *checkInternet;
+@property UIAlertController *unavailableSearch;
+@property UIAlertAction *ok;
 @end
 

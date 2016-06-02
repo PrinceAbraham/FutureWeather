@@ -32,6 +32,7 @@ WeatherObject * currentTenDayly;
 NSDateFormatter *tenDaylydFormatter;
 AppDelegate *forTenDay;
 NSDictionary *stuffForTenDay;
+
 -(void)viewWillAppear:(BOOL)animated{
     forTenDay = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     stuffForTenDay = [[NSMutableDictionary alloc] init];
@@ -60,6 +61,10 @@ NSDictionary *stuffForTenDay;
     // Dispose of any resources that can be recreated.
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -76,7 +81,7 @@ NSDictionary *stuffForTenDay;
     if(![searchBar.text isEqualToString:@""]){
         tenDailySearchText = [[searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"%20"]mutableCopy];
     }
-    
+    searchBar.text = @"";
     [self.view endEditing:YES];
     [self getTenDaylyWeather:tenDailySearchText];
 }
@@ -94,8 +99,27 @@ NSDictionary *stuffForTenDay;
         NSTimeInterval tInterval= (NSTimeInterval)d;
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
         cell.dayLabel.text = [tenDaylydFormatter stringFromDate:date];
-        cell.backgroundImage.image = [UIImage imageNamed:[ NSString stringWithFormat:@"%@",[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]]];
         cell.temperatureLabel.text = [NSString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
+        
+        if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
+
+            cell.backgroundImage.image = [UIImage imageNamed:@"Rain"];
+        
+        }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
+           cell.backgroundImage.image = [UIImage imageNamed:@"Clouds"];
+        }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
+            // self.view.backgroundColor = snow;
+        }else{
+            NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+            [timeFormatter setDateFormat:@"HH:mm"];
+            NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
+            if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
+                cell.backgroundImage.image = [UIImage imageNamed:@"moon"];
+            }else{
+                cell.backgroundImage.image = [UIImage imageNamed:@"Clear"];
+            }
+        }
+
     }
     return cell;
 }
@@ -103,7 +127,6 @@ NSDictionary *stuffForTenDay;
     highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"max"] floatValue]], @"\u00B0"];
     lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"min"] floatValue]], @"\u00B0"];
     temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
-    weatherImage.image = [UIImage imageNamed:(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
     descriptionLabel.text = (NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"];
     double d = [[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"dt"] doubleValue];
     NSTimeInterval tInterval= (NSTimeInterval)d;
@@ -111,8 +134,10 @@ NSDictionary *stuffForTenDay;
     dateLabel.text = [tenDaylydFormatter stringFromDate:date];
     if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
         mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
+        weatherImage.image = [UIImage imageNamed:@"Rain"];
     }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
         mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
+        weatherImage.image = [UIImage imageNamed:@"Clouds"];
     }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
         // self.view.backgroundColor = snow;
     }else{
@@ -121,8 +146,10 @@ NSDictionary *stuffForTenDay;
         NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
         if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
+            weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
             mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
     }
     [self.tenDaylyCollectionView reloadData];
@@ -154,8 +181,9 @@ NSDictionary *stuffForTenDay;
     //create a session
     [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //handle response
-        
-        NSDictionary *stuffForTenDay = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if(data != nil){
+        stuffForTenDay = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if(![[stuffForTenDay objectForKey:@"cod"]isEqualToString: @"404"]){
         forTenDay.weeklyCallback = [stuffForTenDay mutableCopy];
         forTenDay.tenDayCallback = [stuffForTenDay mutableCopy];
         tenDayly = [stuffForTenDay objectForKey:@"list"];
@@ -168,7 +196,10 @@ NSDictionary *stuffForTenDay;
         [self arrangeForView];
         
         });
-        
+          }else{
+              
+          }
+        }
     }] resume];
     urlForThisCall = [[URL stringByAppendingString:DAILY]mutableCopy];
     urlForThisCall = [[urlForThisCall stringByAppendingString:zipOrCity]mutableCopy];
@@ -178,11 +209,15 @@ NSDictionary *stuffForTenDay;
     //create a session
     [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //handle response
+        if(data != nil){
         stuffForTenDay = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         if(![[stuffForTenDay objectForKey:@"cod"]isEqualToString: @"404"]){
             forTenDay.dailyCallback = [stuffForTenDay mutableCopy];
         }else{
-            //Show error Alert
+            //Show Search Alert
+        }
+        }else{
+            //[self presentViewController:forTenDay.checkInternet animated:YES completion:nil];
         }
     }] resume];
 
@@ -216,7 +251,6 @@ NSDictionary *stuffForTenDay;
     highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"max"] floatValue]], @"\u00B0"];
     lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"min"] floatValue]], @"\u00B0"];
     temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
-    weatherImage.image = [UIImage imageNamed:(NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
     locationLabel.text = [NSMutableString stringWithFormat:@"%@",[[stuffForTenDay objectForKey:@"city"] objectForKey:@"name"]];
     descriptionLabel.text = (NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"];
     double d = [[[tenDayly objectAtIndex:0] objectForKey:@"dt"] doubleValue];
@@ -225,8 +259,10 @@ NSDictionary *stuffForTenDay;
     dateLabel.text = [tenDaylydFormatter stringFromDate:date];
     if([(NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
         mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
+        weatherImage.image = [UIImage imageNamed:@"Rain"];
     }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
         mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
+        weatherImage.image = [UIImage imageNamed:@"Clouds"];
     }else if([(NSMutableString *)[[[[ tenDayly objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
         // self.view.backgroundColor = snow;
     }else{
@@ -235,8 +271,10 @@ NSDictionary *stuffForTenDay;
         NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
         if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
+            weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
             mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
     }
     [self.tenDaylyCollectionView reloadData];

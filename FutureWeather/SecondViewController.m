@@ -39,6 +39,8 @@ AppDelegate *forWeekly;
         stuff = forWeekly.weeklyCallback;
         weeklyObjects = [forWeekly.weeklyCallback objectForKey:@"list"];
         [self arrangeForView];
+    }else{
+           
     }
 }
 
@@ -59,13 +61,18 @@ AppDelegate *forWeekly;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
 #pragma mark - Search Delegates
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     //if search field is not empty
     if(![weeklySearchBar.text isEqualToString:@""]){
         searchText = [[weeklySearchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"%20"]mutableCopy];
     }
-    
+    searchBar.text = @"";
     [self.view endEditing:YES];
     [self getWeeklyWeather:searchText];
 }
@@ -83,8 +90,26 @@ AppDelegate *forWeekly;
         NSTimeInterval tInterval= (NSTimeInterval)d;
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
         cell.DayLabel.text = [dFormatter stringFromDate:date];
-        cell.backgroundImage.image = [UIImage imageNamed:[ NSString stringWithFormat:@"%@",[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]]];
         cell.temperatureLabel.text = [NSString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
+        if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
+            
+            cell.backgroundImage.image = [UIImage imageNamed:@"Rain"];
+            
+        }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
+            cell.backgroundImage.image = [UIImage imageNamed:@"Clouds"];
+        }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
+            // self.view.backgroundColor = snow;
+        }else{
+            NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+            [timeFormatter setDateFormat:@"HH:mm"];
+            NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
+            if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
+                cell.backgroundImage.image = [UIImage imageNamed:@"moon"];
+            }else{
+                cell.backgroundImage.image = [UIImage imageNamed:@"Clear"];
+            }
+        }
+        
     }
     return cell;
 }
@@ -93,7 +118,6 @@ AppDelegate *forWeekly;
     highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"max"] floatValue]], @"\u00B0"];
     lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"min"] floatValue]], @"\u00B0"];
     temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
-    weatherImage.image = [UIImage imageNamed:(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
     descriptionLabel.text = (NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"];
     double d = [[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"dt"] doubleValue];
     NSTimeInterval tInterval= (NSTimeInterval)d;
@@ -101,8 +125,10 @@ AppDelegate *forWeekly;
     dateLabel.text = [dFormatter stringFromDate:date];
     if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
         mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
+        weatherImage.image = [UIImage imageNamed:@"Rain"];
     }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
         mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
+        weatherImage.image = [UIImage imageNamed:@"Clouds"];
     }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
         // self.view.backgroundColor = snow;
     }else{
@@ -111,8 +137,10 @@ AppDelegate *forWeekly;
         NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
         if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
+            weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
             mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
     }
 
@@ -143,7 +171,7 @@ AppDelegate *forWeekly;
     //create a session
     [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //handle response
-        
+        if(data != nil){
         stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         forWeekly.weeklyCallback = [stuff mutableCopy];
         forWeekly.tenDayCallback = [stuff mutableCopy];
@@ -153,7 +181,7 @@ AppDelegate *forWeekly;
         dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), ^(void){
         [self arrangeForView];
         });
-        
+        }
     }] resume];
     
     urlForThisCall = [[URL stringByAppendingString:DAILY]mutableCopy];
@@ -164,11 +192,15 @@ AppDelegate *forWeekly;
     //create a session
     [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //handle response
+        if(data != nil){
         stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         if(![[stuff objectForKey:@"cod"]isEqualToString: @"404"]){
             forWeekly.dailyCallback = [stuff mutableCopy];
         }else{
-            //Show error Alert
+            [self presentViewController:forWeekly.unavailableSearch animated:YES completion:nil];
+        }
+        }else{
+            [self presentViewController:forWeekly.checkInternet animated:YES completion:nil];
         }
     }] resume];
     
@@ -202,7 +234,6 @@ AppDelegate *forWeekly;
     highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"max"] floatValue]], @"\u00B0"];
     lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"min"] floatValue]], @"\u00B0"];
     temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:0] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
-    weatherImage.image = [UIImage imageNamed:(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]];
     locationLabel.text = [NSMutableString stringWithFormat:@"%@",[[stuff objectForKey:@"city"] objectForKey:@"name"]];
     descriptionLabel.text = (NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"];
     double d = [[[weeklyObjects objectAtIndex:0] objectForKey:@"dt"] doubleValue];
@@ -211,8 +242,10 @@ AppDelegate *forWeekly;
     dateLabel.text = [dFormatter stringFromDate:date];
     if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
         mainBackgroundImage.image = [UIImage imageNamed:@"RainBackground"];
+        weatherImage.image = [UIImage imageNamed:@"Rain"];
     }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
         mainBackgroundImage.image = [UIImage imageNamed:@"CloudBackground"];
+        weatherImage.image = [UIImage imageNamed:@"Clouds"];
     }else if([(NSMutableString *)[[[[ weeklyObjects objectAtIndex:0] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
         // self.view.backgroundColor = snow;
     }else{
@@ -221,8 +254,10 @@ AppDelegate *forWeekly;
         NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
         if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
+            weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
             mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
     }
     [self.weeklyCollectionView reloadData];
