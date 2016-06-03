@@ -19,8 +19,6 @@
 
 @synthesize mainAnimationImageView, backgroundAnimationImageView;
 
-MainTabBarController *mainView;
-
 NSMutableArray *images;
 
 - (void)viewDidLoad {
@@ -30,9 +28,7 @@ NSMutableArray *images;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    UIStoryboard *storyboard = self.storyboard;
-    mainView = [storyboard instantiateViewControllerWithIdentifier:@"MainView"];
-    [self performSelector:@selector(gotToMainView) withObject:nil afterDelay:11.0];
+    //[self performSelector:@selector(gotToMainView) withObject:nil afterDelay:11.0];
 }
 -(void)viewWillAppear:(BOOL)animated{
     images = [[NSMutableArray alloc] init];
@@ -44,9 +40,9 @@ NSMutableArray *images;
     mainAnimationImageView.animationImages = images;
     backgroundAnimationImageView.animationImages = images;
     mainAnimationImageView.animationDuration = 2.25;
-    mainAnimationImageView.animationRepeatCount = 0;
     backgroundAnimationImageView.animationDuration = 2.25;
     backgroundAnimationImageView.animationRepeatCount = 0;
+    mainAnimationImageView.animationRepeatCount = 0;
     [backgroundAnimationImageView startAnimating];
     [mainAnimationImageView startAnimating];
 }
@@ -54,11 +50,6 @@ NSMutableArray *images;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
--(void)gotToMainView{
-    [self presentViewController:mainView animated:YES completion:nil];
-}
-
 /*
 #pragma mark - Navigation
 

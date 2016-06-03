@@ -7,17 +7,34 @@
 //
 
 #import "AppDelegate.h"
+#import "LaunchScreenMaskViewController.h"
+#import "MainTabBarController.h"
+//@protocol DataLoadedDelegate <NSObject>
+//
+//-(void)DataIsLoaded;
+//
+//@end
 
 @interface AppDelegate ()
-
+//@property(weak, nonatomic)id<DataLoadedDelegate> delegate;
 @end
 
 @implementation AppDelegate
+
+LaunchScreenMaskViewController *instanceOfLaunchScreen;
+MainTabBarController *mainView;
+UIViewController *vc;
+UIStoryboard *storyboard;
 
 @synthesize location;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    _checkInternet = [UIAlertController alertControllerWithTitle:@"No Internet Connection" message:@"Please check your Internet!" preferredStyle:UIAlertControllerStyleAlert];
+    _unavailableSearch = [UIAlertController alertControllerWithTitle:@"Invalid Search" message:@"Please enter a valid City or Zip." preferredStyle:UIAlertControllerStyleAlert];
+    _ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil];
+    [_unavailableSearch addAction:_ok];
+    [_checkInternet addAction:_ok];
     return YES;
 }
 
@@ -44,16 +61,15 @@
 }
 -(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     location = [[CLLocationManager alloc]init];
+    //Get the RootViewController since AppDelegate has no ViewController i.e self presentViewController
+    vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    storyboard = vc.storyboard;
+    mainView = [storyboard instantiateViewControllerWithIdentifier:@"MainView"];
     location.desiredAccuracy = kCLLocationAccuracyBest;
     location.distanceFilter = kCLDistanceFilterNone;
     [location requestWhenInUseAuthorization];
     location.delegate = self;
     [location requestLocation];
-    _checkInternet = [UIAlertController alertControllerWithTitle:@"No Internet Connection" message:@"Please check your Internet!" preferredStyle:UIAlertControllerStyleAlert];
-    _unavailableSearch = [UIAlertController alertControllerWithTitle:@"Invalid Search" message:@"Please enter a valid City or Zip." preferredStyle:UIAlertControllerStyleAlert];
-    _ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil];
-    [_unavailableSearch addAction:_ok];
-    [_checkInternet addAction:_ok];
     return YES;
 }
 #pragma mark - Location Delegates
@@ -78,8 +94,6 @@
         if(![[stuff objectForKey:@"cod"]isEqualToString: @"404"]){
             _weeklyCallback = [stuff mutableCopy];
             _tenDayCallback = [stuff mutableCopy];
-        }else{
-            //Show error Alert
         }
         }
     }] resume];
@@ -94,9 +108,12 @@
         if(![[stuff objectForKey:@"cod"]isEqualToString: @"404"]){
             _dailyCallback = [stuff mutableCopy];
             _isSearched = YES;
-        }else{
-            //Show error Alert
+            //Stop LaunchScreen and Go To MainTabBarController
+            [vc presentViewController:mainView animated:YES completion:nil];
         }
+        }else{
+            //Stop LaunchScreen and Go To MainTabBarController
+            [vc presentViewController:mainView animated:YES completion:nil];
         }
     }] resume];
 }

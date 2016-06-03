@@ -124,6 +124,7 @@ NSDictionary *stuffForTenDay;
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if(forTenDay.isSearched){
     highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"max"] floatValue]], @"\u00B0"];
     lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"min"] floatValue]], @"\u00B0"];
     temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[tenDayly objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
@@ -148,11 +149,16 @@ NSDictionary *stuffForTenDay;
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
-            mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            if([temperatureLabel.text integerValue] > 0){
+                mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            }else{
+                mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];
+            }
             weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
     }
     [self.tenDaylyCollectionView reloadData];
+    }
 }
 
 
@@ -167,7 +173,6 @@ NSDictionary *stuffForTenDay;
     }else{
         zipOrCity =@"q=";
     }
-    forTenDay.isSearched = YES;
     //if(firstSearchText)
     NSMutableString *urlForThisCall = [[URL stringByAppendingString:WEEKLY]mutableCopy];
     urlForThisCall = [[urlForThisCall stringByAppendingString:zipOrCity]mutableCopy];
@@ -184,6 +189,7 @@ NSDictionary *stuffForTenDay;
         if(data != nil){
         stuffForTenDay = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         if(![[stuffForTenDay objectForKey:@"cod"]isEqualToString: @"404"]){
+        forTenDay.isSearched = YES;
         forTenDay.weeklyCallback = [stuffForTenDay mutableCopy];
         forTenDay.tenDayCallback = [stuffForTenDay mutableCopy];
         tenDayly = [stuffForTenDay objectForKey:@"list"];
@@ -197,8 +203,10 @@ NSDictionary *stuffForTenDay;
         
         });
           }else{
-              
+              [self presentViewController:forTenDay.unavailableSearch animated:YES completion:nil];
           }
+        }else{
+            [self presentViewController:forTenDay.checkInternet animated:YES completion:nil];
         }
     }] resume];
     urlForThisCall = [[URL stringByAppendingString:DAILY]mutableCopy];
@@ -273,7 +281,11 @@ NSDictionary *stuffForTenDay;
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
-            mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            if([temperatureLabel.text integerValue] > 0){
+                mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            }else{
+                mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];
+            }
             weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
     }

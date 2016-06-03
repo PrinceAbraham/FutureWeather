@@ -42,7 +42,9 @@ UIAlertAction *cantFindLocation;
 -(void)viewWillAppear:(BOOL)animated{
     forDaily = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     alert = [UIAlertController alertControllerWithTitle:@"Can't Locate User" message:@"Please check your Internet and Location Services." preferredStyle:UIAlertControllerStyleAlert];
-    cantFindLocation = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil];
+    cantFindLocation = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+//        exit(0);
+    }];
     [alert addAction:cantFindLocation];
     if(forDaily.isSearched){
         stuffForDay = forDaily.dailyCallback;
@@ -99,9 +101,6 @@ UIAlertAction *cantFindLocation;
     }else{
         zipOrCity =@"q=";
     }
-    
-    forDaily.isSearched = YES;
-    
     //if(firstSearchText)
     NSMutableString *urlForThisCall = [[URL stringByAppendingString:DAILY]mutableCopy];
     urlForThisCall = [[urlForThisCall stringByAppendingString:zipOrCity]mutableCopy];
@@ -117,6 +116,7 @@ UIAlertAction *cantFindLocation;
         stuffForDay = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         forDaily.dailyCallback = stuffForDay;
         if(![[stuffForDay objectForKey:@"cod"]isEqualToString: @"404"]){
+        forDaily.isSearched = YES;
         todayObjects = [stuffForDay objectForKey:@"list"];
         NSLog(@"PRINT %lu",[todayObjects count]);
         
@@ -172,16 +172,33 @@ UIAlertAction *cantFindLocation;
         NSTimeInterval tInterval= (NSTimeInterval)d;
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:tInterval];
         cell.timeLabel.text = [df stringFromDate:date];
-        cell.cellImage.image = [UIImage imageNamed:[ NSString stringWithFormat:@"%@",[[[[todayObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"]]];
         cell.temperatureLabel.text = [NSString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[todayObjects objectAtIndex:indexPath.row]
                                                                                                            objectForKey:@"main"] objectForKey:@"temp"] floatValue]], @"\u00B0"];
-        //dateLabel.text = [df stringFromDate:date];
+        if([(NSMutableString *)[[[[ todayObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Rain"]){
+            
+            cell.cellImage.image = [UIImage imageNamed:@"Rain"];
+            
+        }else if([(NSMutableString *)[[[[ todayObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Clouds"]){
+            cell.cellImage.image = [UIImage imageNamed:@"Clouds"];
+        }else if([(NSMutableString *)[[[[ todayObjects objectAtIndex:indexPath.row] objectForKey:@"weather"] objectAtIndex:0] objectForKey:@"main"] isEqualToString:@"Snow"]){
+            // self.view.backgroundColor = snow;
+        }else{
+            NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+            [timeFormatter setDateFormat:@"HH:mm"];
+            NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
+            if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
+                cell.cellImage.image = [UIImage imageNamed:@"moon"];
+            }else{
+                cell.cellImage.image = [UIImage imageNamed:@"Clear"];
+            }
+        }
        
         
     }
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if(forDaily.isSearched){
     highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[todayObjects objectAtIndex:indexPath.row] objectForKey:@"main"] objectForKey:@"temp_max"] floatValue]], @"\u00B0"];
     lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[todayObjects objectAtIndex:indexPath.row] objectForKey:@"main"] objectForKey:@"temp_min"] floatValue]], @"\u00B0"];
     temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[todayObjects objectAtIndex:indexPath.row] objectForKey:@"main"] objectForKey:@"temp"] floatValue]], @"\u00B0"];
@@ -207,9 +224,14 @@ UIAlertAction *cantFindLocation;
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
+            if([temperatureLabel.text integerValue] > 0){
             mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            }else{
+            mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];
+            }
             weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
+    }
     }
 }
 #pragma marks - Custom Functions
@@ -263,7 +285,11 @@ UIAlertAction *cantFindLocation;
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
-            mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            if([temperatureLabel.text integerValue] > 0){
+                mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            }else{
+                mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];
+            }
             weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
     }

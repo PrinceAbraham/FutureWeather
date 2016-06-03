@@ -115,6 +115,7 @@ AppDelegate *forWeekly;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if(forWeekly.isSearched){
     highLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"max"] floatValue]], @"\u00B0"];
     lowLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"min"] floatValue]], @"\u00B0"];
     temperatureLabel.text = [NSMutableString stringWithFormat:@"%d%@F",(int)[self convertToFahranheit:[[[[weeklyObjects objectAtIndex:indexPath.row] objectForKey:@"temp"] objectForKey:@"day"] floatValue]], @"\u00B0"];
@@ -139,11 +140,15 @@ AppDelegate *forWeekly;
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
-            mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            if([temperatureLabel.text integerValue] > 0){
+                mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            }else{
+                mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];
+            }
             weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
     }
-
+    }
 }
 #pragma mark - Custom Functions
 -(void)getWeeklyWeather:(NSMutableString *) text{
@@ -156,8 +161,7 @@ AppDelegate *forWeekly;
     }else{
         zipOrCity =@"q=";
     }
-    
-    forWeekly.isSearched = YES;
+
     //if(firstSearchText)
     NSMutableString *urlForThisCall = [[URL stringByAppendingString:WEEKLY]mutableCopy];
     urlForThisCall = [[urlForThisCall stringByAppendingString:zipOrCity]mutableCopy];
@@ -195,6 +199,7 @@ AppDelegate *forWeekly;
         if(data != nil){
         stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         if(![[stuff objectForKey:@"cod"]isEqualToString: @"404"]){
+            forWeekly.isSearched = YES;
             forWeekly.dailyCallback = [stuff mutableCopy];
         }else{
             [self presentViewController:forWeekly.unavailableSearch animated:YES completion:nil];
@@ -256,7 +261,11 @@ AppDelegate *forWeekly;
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
-            mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            if([temperatureLabel.text integerValue] > 0){
+                mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
+            }else{
+                mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];
+            }
             weatherImage.image = [UIImage imageNamed:@"Clear"];
         }
     }
