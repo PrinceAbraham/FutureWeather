@@ -26,7 +26,7 @@
                   moduleName = "FutureWeather"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/prince/Desktop/FutureWeather/FutureWeather/SecondViewController.m"
-                  timestampString = "486666406.392979"
+                  timestampString = "486915142.702364"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "176"
@@ -41,7 +41,7 @@
                   moduleName = "FutureWeather"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/prince/Desktop/FutureWeather/FutureWeather/SecondViewController.m"
-                  timestampString = "486666406.393119"
+                  timestampString = "486915142.702483"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "178"
@@ -106,7 +106,7 @@
                   moduleName = "FutureWeather"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/prince/Desktop/FutureWeather/FutureWeather/SecondViewController.m"
-                  timestampString = "486666406.394734"
+                  timestampString = "486915142.729638"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "185"
@@ -121,7 +121,7 @@
                   moduleName = "FutureWeather"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/prince/Desktop/FutureWeather/FutureWeather/SecondViewController.m"
-                  timestampString = "486666406.394838"
+                  timestampString = "486915142.729766"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "185"
@@ -186,22 +186,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FutureWeather/FirstViewController.m"
-            timestampString = "486658408.812904"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-viewWillAppear:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FutureWeather/FirstViewController.m"
             timestampString = "486666405.375876"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -217,13 +201,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FutureWeather/AppDelegate.m"
-            timestampString = "486665975.341505"
+            filePath = "FutureWeather/FirstViewController.m"
+            timestampString = "486669061.257791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "-getDailyWeather"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FutureWeather/AppDelegate.m"
+            timestampString = "486911427.123702"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "-locationManager:didUpdateLocations:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FutureWeather/AppDelegate.m"
+            timestampString = "486912682.346794"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "-locationManager:didFailWithError:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

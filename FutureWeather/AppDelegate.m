@@ -109,16 +109,25 @@ UIStoryboard *storyboard;
             _dailyCallback = [stuff mutableCopy];
             _isSearched = YES;
             //Stop LaunchScreen and Go To MainTabBarController
+            //if(vc presentingViewController)
             [vc presentViewController:mainView animated:YES completion:nil];
         }
         }else{
-            //Stop LaunchScreen and Go To MainTabBarController
-            [vc presentViewController:mainView animated:YES completion:nil];
+            //No Internet
+            [vc presentViewController:_checkInternet animated:YES completion:nil];
         }
     }] resume];
 }
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     _isSearched = NO;
+    if([error code] == 1){
+        UIAlertController *reEnableController = [UIAlertController alertControllerWithTitle:@"App Permission Denied" message:@"To re-enable, please go to Settings and turn on Location Service for this app." preferredStyle:UIAlertControllerStyleAlert];
+        [reEnableController addAction:_ok];
+        [vc presentViewController:reEnableController animated:YES completion:nil];
+    }
+    else{
+        [vc presentViewController:_checkInternet animated:YES completion:nil];
+    }
 }
 
 @end

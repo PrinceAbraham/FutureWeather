@@ -149,7 +149,7 @@ NSDictionary *stuffForTenDay;
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
-            if([temperatureLabel.text integerValue] > 0){
+            if([temperatureLabel.text integerValue] > 32){
                 mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
             }else{
                 mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];
@@ -232,7 +232,7 @@ NSDictionary *stuffForTenDay;
 }
 
 -(float) convertToFahranheit:(float)kelvin{
-    float k= (round(kelvin * 9.0/5) - 459.67)-10;
+    float k= (round(kelvin * 9.0/5) - 459.67);
     int f = (int)k;
     return f;
 }
@@ -281,7 +281,7 @@ NSDictionary *stuffForTenDay;
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
-            if([temperatureLabel.text integerValue] > 0){
+            if([temperatureLabel.text integerValue] > 32){
                 mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
             }else{
                 mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];

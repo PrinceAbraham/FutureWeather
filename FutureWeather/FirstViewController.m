@@ -95,11 +95,10 @@ UIAlertAction *cantFindLocation;
     NSMutableCharacterSet *numSet = [NSMutableCharacterSet decimalDigitCharacterSet];
     NSMutableString *zipOrCity = [[NSMutableString alloc]init];
     BOOL zip = [[firstSearchText stringByTrimmingCharactersInSet:numSet] isEqualToString:@""];
-    
     if(zip){
-        zipOrCity = @"zip=";
+        zipOrCity = [@"zip=" mutableCopy];
     }else{
-        zipOrCity =@"q=";
+        zipOrCity =[@"q=" mutableCopy];
     }
     //if(firstSearchText)
     NSMutableString *urlForThisCall = [[URL stringByAppendingString:DAILY]mutableCopy];
@@ -185,7 +184,7 @@ UIAlertAction *cantFindLocation;
         }else{
             NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
             [timeFormatter setDateFormat:@"HH:mm"];
-            NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
+            NSMutableString *dayOrNightString = [[timeFormatter stringFromDate:date] mutableCopy];
             if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
                 cell.cellImage.image = [UIImage imageNamed:@"moon"];
             }else{
@@ -219,12 +218,12 @@ UIAlertAction *cantFindLocation;
     }else{
         NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
         [timeFormatter setDateFormat:@"HH:mm"];
-        NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
+        NSMutableString *dayOrNightString = [[timeFormatter stringFromDate:date]mutableCopy];
         if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
-            if([temperatureLabel.text integerValue] > 0){
+            if([temperatureLabel.text integerValue] > 32){
             mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
             }else{
             mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];
@@ -236,7 +235,7 @@ UIAlertAction *cantFindLocation;
 }
 #pragma marks - Custom Functions
 -(float) convertToFahranheit:(float)kelvin{
-    float k= (round(kelvin * 9.0/5) - 459.67)-10;
+    float k= (round(kelvin * 9.0/5) - 459.67);
     int f = (int)k;
     return f;
 }
@@ -280,12 +279,12 @@ UIAlertAction *cantFindLocation;
     }else{
         NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
         [timeFormatter setDateFormat:@"HH:mm"];
-        NSMutableString *dayOrNightString = [timeFormatter stringFromDate:date];
+        NSMutableString *dayOrNightString = [[timeFormatter stringFromDate:date]mutableCopy];
         if([dayOrNightString floatValue] >= 18.00 || [dayOrNightString floatValue] <=6.00){
             mainBackgroundImage.image = [UIImage imageNamed:@"NightBackground"];
             weatherImage.image = [UIImage imageNamed:@"moon"];
         }else{
-            if([temperatureLabel.text integerValue] > 0){
+            if([temperatureLabel.text integerValue] > 32){
                 mainBackgroundImage.image = [UIImage imageNamed:@"SunBackground"];
             }else{
                 mainBackgroundImage.image = [UIImage imageNamed:@"Snow"];
