@@ -16,6 +16,8 @@ FOUNDATION_EXPORT NSString *const DAILY;
 FOUNDATION_EXPORT NSString *const WEEKLY;
 FOUNDATION_EXPORT NSString *const APIURLWITHKEY;
 FOUNDATION_EXPORT NSString *const SEARCHED;
+FOUNDATION_EXPORT NSString *const LOCATIONSKEY;
+FOUNDATION_EXPORT NSString *const SELECTEDLOCATION;
 
 #define rain [UIColor colorWithRed:240/255.0 green:248/255.0 blue:253/255.0 alpha:1.0]
 #define night [UIColor colorWithRed:193/255.0 green:193/255.0 blue:193/255.0 alpha:1.0]

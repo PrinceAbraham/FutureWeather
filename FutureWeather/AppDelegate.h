@@ -21,8 +21,10 @@
 @property (nonatomic, strong) NSMutableDictionary *dailyCallback, *weeklyCallback, *tenDayCallback;
 @property CLLocationManager *location;
 @property BOOL isSearched;
+@property NSUserDefaults *userDefaults;
 @property UIAlertController *checkInternet;
 @property UIAlertController *unavailableSearch;
 @property UIAlertAction *ok;
+@property (copy) NSMutableArray *savedLocations;
 @end
 

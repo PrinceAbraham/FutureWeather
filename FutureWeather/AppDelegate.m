@@ -25,11 +25,14 @@ LaunchScreenMaskViewController *instanceOfLaunchScreen;
 MainTabBarController *mainView;
 UIViewController *vc;
 UIStoryboard *storyboard;
+NSString *selectedLocation;
+BOOL isMainView=false;
 
 @synthesize location;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //selectedLocation = [_userDefaults valueForKey:SELECTEDLOCATION];
     _checkInternet = [UIAlertController alertControllerWithTitle:@"No Internet Connection" message:@"Please check your Internet!" preferredStyle:UIAlertControllerStyleAlert];
     _unavailableSearch = [UIAlertController alertControllerWithTitle:@"Invalid Search" message:@"Please enter a valid City or Zip." preferredStyle:UIAlertControllerStyleAlert];
     _ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil];
@@ -61,15 +64,26 @@ UIStoryboard *storyboard;
 }
 -(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     location = [[CLLocationManager alloc]init];
+    _userDefaults = [NSUserDefaults standardUserDefaults];
+    selectedLocation = [[NSString alloc] init];
+    _savedLocations = [[NSMutableArray alloc] init];
+    if([_userDefaults valueForKey:LOCATIONSKEY] != nil){
+    _savedLocations = [[_userDefaults valueForKey:LOCATIONSKEY]mutableCopy]   ;
+    }
+    selectedLocation = [_userDefaults valueForKey:SELECTEDLOCATION];
     //Get the RootViewController since AppDelegate has no ViewController i.e self presentViewController
     vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     storyboard = vc.storyboard;
     mainView = [storyboard instantiateViewControllerWithIdentifier:@"MainView"];
+    if([selectedLocation isEqualToString:@""] || selectedLocation == nil){
     location.desiredAccuracy = kCLLocationAccuracyBest;
     location.distanceFilter = kCLDistanceFilterNone;
     [location requestWhenInUseAuthorization];
     location.delegate = self;
     [location requestLocation];
+    }else{
+        [self getDataToCustomLocation];
+    }
     return YES;
 }
 #pragma mark - Location Delegates
@@ -110,7 +124,10 @@ UIStoryboard *storyboard;
             _isSearched = YES;
             //Stop LaunchScreen and Go To MainTabBarController
             //if(vc presentingViewController)
+            if(!isMainView){
             [vc presentViewController:mainView animated:YES completion:nil];
+                isMainView=true;
+            }
         }
         }else{
             //No Internet
@@ -130,4 +147,51 @@ UIStoryboard *storyboard;
     }
 }
 
+-(void)getDataToCustomLocation{
+    
+    NSString *selLoc = [NSString stringWithFormat:@"q=%@",selectedLocation];
+    NSMutableString *urlForThisCall = [[URL stringByAppendingString:WEEKLY]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:selLoc]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:@"&mode=json"]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:APIURLWITHKEY]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:@"&cnt=10"]mutableCopy];
+    NSURL *url = [NSURL URLWithString:urlForThisCall];
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        //handle response
+        if(data != nil){
+            NSDictionary *stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            if(![[stuff objectForKey:@"cod"]isEqualToString: @"404"]){
+                _weeklyCallback = [stuff mutableCopy];
+                _tenDayCallback = [stuff mutableCopy];
+            }
+        }
+    }] resume];
+    urlForThisCall = [[URL stringByAppendingString:DAILY]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:selLoc]mutableCopy];
+    urlForThisCall = [[urlForThisCall stringByAppendingString:APIURLWITHKEY]mutableCopy];
+    url = [NSURL URLWithString:urlForThisCall];
+    [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        //handle response
+        if(data !=nil){
+            NSDictionary *stuff = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            if(![[stuff objectForKey:@"cod"]isEqualToString: @"404"]){
+                _dailyCallback = [stuff mutableCopy];
+                _isSearched = YES;
+                //Stop LaunchScreen and Go To MainTabBarController
+                //if(vc presentingViewController)
+                if(!isMainView){
+                    [vc presentViewController:mainView animated:YES completion:nil];
+                    isMainView=true;
+                }
+            }
+        }else{
+            //No Internet
+            [vc presentViewController:_checkInternet animated:YES completion:nil];
+        }
+    }] resume];
+
+    
+}
 @end
